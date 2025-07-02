@@ -1,4 +1,4 @@
-import { Forgot, Input, InputPassword, Submit } from '../components/Components'
+import { Input, InputPassword, Submit, Link } from '../components/Components'
 import { GraduationCap, UserRound, KeyRound, Eye, EyeOff } from 'lucide-react'
 
 const Authorization = () => {
@@ -18,7 +18,7 @@ const Authorization = () => {
 							<UserRound size={28} className='w-20 opacity-66' />
 						</Input>
 						<InputPassword />
-						<Forgot />
+						<Link text={'Забыли пароль или логин?'} ref={'#'} />
 						<Submit />
 					</div>
 				</div>

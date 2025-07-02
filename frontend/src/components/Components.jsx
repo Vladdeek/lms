@@ -6,8 +6,22 @@ import {
 	EyeOff,
 	PlaySquare,
 	ChevronDown,
+	Flag,
+	SearchIcon,
+	Cross,
+	X,
+	ArrowRight,
+	Moon,
+	Sun,
+	ChevronsUpDown,
+	Book,
+	BookOpen,
+	ChevronRight,
+	TrendingUp,
+	ArrowLeft,
 } from 'lucide-react'
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 const Input = ({ children, placeholder }) => {
 	return (
 		<div className='flex h-20 w-4/5 gap-3 justify-between items-center border-1 border-[#00000010] shadow-md shadow-[#00000010] rounded-xl p-3 focus-within:outline-4  focus-within:border-[#820000] focus-within:border-2 outline-[#82000099]'>
@@ -50,43 +64,412 @@ const Submit = () => {
 		<input
 			type='submit'
 			value={'Войти'}
-			className='bg-[#820000] hover:bg-[#660000] transition-all w-4/5 h-22 text-white text-3xl font-semibold rounded-xl'
+			className='bg-[#820000] hover:bg-[#660000] transition-all w-4/5 h-22 text-white text-3xl font-medium rounded-xl'
 		/>
 	)
 }
-const Forgot = () => {
+
+const Link = ({ text }) => {
 	return (
-		<button className='text-xl font-semibold text-stone-600 relative group mb-3'>
+		<button className='text-xl font-medium text-stone-600 relative group mb-3 cursor-pointer'>
 			<span className='relative inline-block hover:text-[#820000]'>
-				Забыли пароль или логин?
-				<span className='absolute left-0 bottom-[-1px] w-0 h-0.5 bg-stone-600 transition-all duration-300 group-hover:w-full'></span>
+				{text}
+				<span
+					className='absolute left-0 bottom-[-0.25rem] h-0.5 bg-[#820000] rounded 
+					 transition-all duration-400 ease-in-out
+					 w-0 group-hover:w-full'
+				></span>
+				<span
+					className='absolute left-0 bottom-[-0.25rem] h-0.5 bg-[#820000] rounded 
+					 transition-all duration-400 ease-in-out
+					 w-full scale-x-100 origin-right
+					 opacity-0 group-hover:opacity-100 group-hover:scale-x-0'
+				></span>
 			</span>
 		</button>
 	)
 }
 
-const Dropdown = () => {
-	const [isOpen, setIsOpen] = useState(false)
+const Dropdown = ({ children, ChapterName, isOpen, onToggle }) => {
 	return (
-		<div className='flex flex-col'>
+		<div className='flex flex-col relative'>
 			<div
 				className={`${
 					isOpen ? 'bg-[#82000010] ' : 'hover:bg-[#82000010] '
-				} flex text-black hover:text-[#820000]`}
-				onClick={() => setIsOpen(!isOpen)}
+				} flex text-black hover:text-[#820000] h-15 justify-center items-center px-7 rounded-xl gap-1 transition-all cursor-pointer`}
+				onClick={onToggle}
 			>
-				<p className={`${isOpen && 'text-[#820000]'}`}>Курсы</p>
-				<ChevronDown />
+				<p className={`${isOpen && 'text-[#820000]'} font-medium text-xl`}>
+					{ChapterName}
+				</p>
+				<ChevronDown
+					className={`${
+						isOpen ? 'text-[#820000] -rotate-180' : 'hover:text-[#820000]'
+					} transition-all`}
+				/>
 			</div>
 			{isOpen && (
-				<div className={`bg-white flex flex-col`}>
-					<p>Все курсы</p>
-					<p>Поиск курсов</p>
-					<p>Темы документации</p>
+				<div
+					className={`bg-white flex flex-col absolute top-full left-0 z-50 shadow-md p-1 rounded-xl`}
+				>
+					{children}
 				</div>
 			)}
 		</div>
 	)
 }
 
-export { Input, InputPassword, Submit, Forgot, Dropdown }
+const Accordion = ({ children, ChapterName }) => {
+	const [isOpen, setIsOpen] = useState(false)
+
+	return (
+		<div className='flex flex-col border-1 border-stone-200 rounded-xl overflow-hidden'>
+			<div
+				className='flex text-black hover:text-[#820000] p-4 transition-all cursor-pointer'
+				onClick={() => setIsOpen(!isOpen)}
+			>
+				<div className='flex w-full justify-between items-center group'>
+					<div className='flex gap-4 items-center'>
+						<ChevronRight
+							className={`${
+								isOpen
+									? 'text-[#820000] -rotate-90' // Поворот на 90° при открытии
+									: 'group-hover:rotate-90' // Плавный поворот при наведении
+							} transition-transform duration-200`}
+						/>
+						<p className={`${isOpen && 'text-[#820000]'} font-normal text-xl`}>
+							{ChapterName}
+						</p>
+					</div>
+					<div className='flex gap-3'>
+						<div className='flex text-stone-500 items-center bg-stone-100 rounded-md p-3 px-4 gap-2'>
+							<BookOpen size={22} />
+							<p className='font-medium text-md'>4</p>
+						</div>
+						<div className='flex items-center bg-[#82000010] text-[#820000] hover:bg-[#82000025] rounded-md p-2 px-4 font-medium transition-all'>
+							<p>Показать все курсы</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* Контент с анимацией */}
+			<div
+				className={`${
+					isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+				} transition-all duration-300 overflow-hidden`}
+			>
+				<div className='flex p-4 border-t-1 gap-3 border-stone-200'>
+					{children}
+				</div>
+			</div>
+		</div>
+	)
+}
+
+const Option = ({ options, selectedValue, onSelect }) => {
+	const [isOpen, setIsOpen] = useState(false)
+
+	// Находим выбранный элемент для отображения
+	const selectedOption = options.find(opt => opt.value === selectedValue)
+
+	return (
+		<div className='relative inline-block w-75'>
+			<div
+				className={`flex items-center gap-3 justify-between p-4 border rounded-lg cursor-pointer transition-colors ${
+					isOpen
+						? 'border-[#820000] ring-2 ring-[#82000020]'
+						: 'border-gray-200 hover:border-gray-300'
+				}`}
+				onClick={() => setIsOpen(!isOpen)}
+			>
+				<span
+					className={`text-lg ${
+						selectedOption ? 'text-gray-900' : 'text-gray-500'
+					}`}
+				>
+					{selectedOption?.label || 'Выберите вариант'}
+				</span>
+				<ChevronsUpDown
+					className={`w-5 h-5 transition-transform ${
+						isOpen ? 'text-[#820000]' : 'text-gray-400'
+					}`}
+				/>
+			</div>
+			{isOpen && (
+				<div className='absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden'>
+					{options.map(option => (
+						<div
+							key={option.value}
+							className={`p-3 cursor-pointer transition-colors ${
+								option.value === selectedValue
+									? 'bg-[#82000010] text-[#820000]'
+									: 'hover:bg-[#82000010] hover:text-[#820000]'
+							}`}
+							onClick={() => {
+								onSelect(option.value)
+								setIsOpen(false)
+							}}
+						>
+							{option.label}
+						</div>
+					))}
+				</div>
+			)}
+		</div>
+	)
+}
+
+const InDropdown = ({ content, to }) => {
+	return (
+		<NavLink to={to}>
+			<p className='hover:bg-[#82000010] hover:text-[#820000] rounded-lg text-xl font-medium select-none transition-all px-4 py-2'>
+				{content}
+			</p>
+		</NavLink>
+	)
+}
+const HeaderBtn = ({ ChapterName }) => {
+	return (
+		<div className='flex flex-col relative'>
+			<div
+				className={`hover:bg-[#82000010] flex text-black hover:text-[#820000] h-15 justify-center items-center px-7 rounded-xl gap-1 transition-all cursor-pointer`}
+			>
+				<p className={` font-medium text-xl`}>{ChapterName}</p>
+			</div>
+		</div>
+	)
+}
+
+const ChangeLang = ({ children, ChapterName }) => {
+	const [isOpen, setIsOpen] = useState(false)
+
+	return (
+		<div className='flex flex-col relative'>
+			<div
+				className={`${
+					isOpen ? 'bg-[#82000010] ' : 'bg-stone-100 hover:bg-[#82000010] '
+				} flex text-black hover:text-[#820000] h-15 justify-center items-center px-7 rounded-xl gap-1 transition-all cursor-pointer`}
+				onClick={() => setIsOpen(!isOpen)}
+			>
+				<Flag
+					className={`${isOpen ? 'text-[#820000]' : 'hover:text-[#820000]'}`}
+				/>
+				<p className={`${isOpen && 'text-[#820000]'} font-medium text-xl`}>
+					{ChapterName}
+				</p>
+			</div>
+			{isOpen && (
+				<div
+					className={`bg-white flex flex-col absolute top-full left-0 z-50 shadow-md p-1 rounded-xl`}
+				>
+					{children}
+				</div>
+			)}
+		</div>
+	)
+}
+
+const Search = ({ searchIsOpen, onClick }) => {
+	return (
+		<>
+			<div
+				className={`${
+					searchIsOpen &&
+					'flex items-center shadow-md shadow-stone-200 border-1 border-stone-100 focus-within:outline-3 outline-[#82000099] rounded-lg pr-2'
+				}`}
+			>
+				<SearchIcon
+					className={`${
+						!searchIsOpen &&
+						'hover:bg-[#82000010] hover:text-[#820000] cursor-pointer'
+					} h-15 w-15 flex justify-center items-center rounded-lg p-4`}
+					size={28}
+					onClick={!searchIsOpen && onClick}
+				/>
+				{searchIsOpen && (
+					<>
+						<input
+							type='text'
+							placeholder='Поиск'
+							className='outline-0 h-full text-xl'
+						/>
+						<X
+							className='hover:bg-[#82000010] hover:text-[#820000] rounded-full p-3'
+							size={48}
+							onClick={searchIsOpen && onClick}
+						/>
+						<ArrowRight
+							className='hover:bg-[#00008210] hover:text-[#000082] rounded-full p-3'
+							size={48}
+						/>
+					</>
+				)}
+			</div>
+		</>
+	)
+}
+
+const SearchDefault = ({}) => {
+	return (
+		<div
+			className={`shadow-md shadow-stone-200 border-1 border-stone-100 focus-within:outline-3 outline-[#82000099] rounded-lg pr-2 inline-flex items-center`}
+		>
+			<SearchIcon
+				className={`h-15 w-15 justify-center items-center rounded-lg p-4`}
+				size={28}
+			/>
+
+			<input
+				type='text'
+				placeholder='Поиск'
+				className='outline-0 text-xl bg-transparent'
+			/>
+
+			<ArrowRight
+				className='hover:bg-[#00008210] hover:text-[#000082] rounded-full p-3'
+				size={48}
+			/>
+		</div>
+	)
+}
+
+const ToggleTheme = () => {
+	const [ThemeStatus, setThemeStatus] = useState(false)
+	return (
+		<>
+			<button
+				className={`${
+					!ThemeStatus
+						? 'bg-orange-100 text-stone-700 hover:bg-stone-950 hover:text-white'
+						: ''
+				}  h-15 w-15 rounded-lg flex justify-center items-center transition-all  relative group`}
+			>
+				{!ThemeStatus ? (
+					<>
+						<Moon size={42} className='p-2' />
+					</>
+				) : (
+					<>
+						<Sun size={42} className='p-2' />
+					</>
+				)}
+			</button>
+		</>
+	)
+}
+
+const Profile = ({ children, img_path }) => {
+	const [isOpen, setIsOpen] = useState(false)
+
+	return (
+		<div className='flex flex-col relative'>
+			<div
+				className={` flex text-black h-15 justify-center items-center rounded-xl gap-1 transition-all cursor-pointer`}
+				onClick={() => setIsOpen(!isOpen)}
+			>
+				<img
+					className='rounded-lg border-1 border-stone-200 select-none'
+					src={img_path}
+					alt=''
+				/>
+				<ChevronDown className={`${isOpen && ' -rotate-180'} transition-all`} />
+			</div>
+			{isOpen && (
+				<div
+					className={`bg-white flex flex-col absolute top-20 -left-55 z-50 shadow-md rounded-xl`}
+				>
+					{children}
+				</div>
+			)}
+		</div>
+	)
+}
+
+const Button = ({ img, namebtn }) => {
+	return (
+		<>
+			<button className='bg-[#820000] hover:bg-[#82000025] hover:text-[#820000] active:scale-97 transition-all inline-flex gap-4 text-white font-medium p-4 px-10 text-lg justify-between rounded-md'>
+				{img !== 'left' ? (
+					<>
+						<p>{namebtn}</p>
+						<ArrowRight />
+					</>
+				) : (
+					<>
+						<ArrowLeft />
+						<p>{namebtn}</p>
+					</>
+				)}
+			</button>
+		</>
+	)
+}
+
+const CourseCard = ({
+	title,
+	description,
+	tag,
+	procent,
+	img_path,
+	isProgressbar,
+}) => {
+	return (
+		<div className='border-1 border-stone-200 rounded-lg flex flex-col overflow-hidden w-1/4'>
+			<img className='w-full h-85 object-cover' src={img_path} alt='' />
+			<div className='flex h-75 flex-col gap-3 p-5'>
+				<a
+					href='#'
+					className='font-bold text-2xl hover:text-[#820000] transition-all'
+				>
+					{title}
+				</a>
+				<p className='text-2xl font-light text-stone-500 mb-4'>{description}</p>
+				<p className='bg-stone-100 w-fit text-stone-500 rounded-lg px-3 py-1 font-medium text-lg'>
+					{tag}
+				</p>
+			</div>
+			{!isProgressbar ? (
+				<>
+					<div className='flex items-center gap-4 border-t-1 border-stone-200 p-5 pb-7'>
+						<TrendingUp size={32} />
+						<div className='flex flex-col w-full'>
+							<p>
+								<span className='font-semibold'>{procent}%</span> Выполнено
+							</p>
+							<div className='w-full h-3 bg-stone-200 rounded-full overflow-hidden'>
+								<div
+									className='h-3 rounded-full bg-gradient-to-r from-[#820000] to-[#c10f1a]'
+									style={{ width: `${procent}%` }}
+								></div>
+							</div>
+						</div>
+					</div>
+				</>
+			) : (
+				<div className='p-3 flex justify-end'>
+					<Button namebtn={'Получить'} img={'right'} />
+				</div>
+			)}
+		</div>
+	)
+}
+
+export {
+	Profile,
+	Input,
+	InputPassword,
+	Submit,
+	Link,
+	Dropdown,
+	InDropdown,
+	HeaderBtn,
+	ChangeLang,
+	Search,
+	SearchDefault,
+	ToggleTheme,
+	Option,
+	Accordion,
+	CourseCard,
+	Button,
+}

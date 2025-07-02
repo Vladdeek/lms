@@ -23,6 +23,7 @@ export default function DashboardLayout() {
 		phone: '+7 (123) 456-78-90',
 	})
 	const [roles, setRoles] = useState([])
+	const [sidebarOpen, setSidebarOpen] = useState(true)
 
 	if (!user)
 		return (
@@ -37,56 +38,75 @@ export default function DashboardLayout() {
 		}
 		const names = user.full_name.split(' ')
 		const initials = names.slice(0, 2).join('+')
-		const colors = [
-			'f5b7b1',
-			'e8daef',
-			'aed6f1',
-			'a2d9ce',
-			'abebc6',
-			'f9e79f',
-			'fad7a0',
-			'edbb99',
-		]
-		const color = colors[user.id % colors.length]
-		return `https://ui-avatars.com/api/?name=${initials}&background=${color}&color=fff`
+
+		return `https://ui-avatars.com/api/?name=${initials}&background=fff&color=000`
+	}
+
+	const toggleSidebar = () => {
+		setSidebarOpen(!sidebarOpen)
 	}
 
 	return (
-		<>
-			<Sidebar
-				username={user.full_name.split(' ')}
-				role={roles.join(', ')}
-				img_path={getAvatar()}
+		<div className='flex min-h-screen'>
+			{/* Sidebar */}
+			<div
+				className={`fixed h-full w-103 bg-white z-10 transition-transform duration-300 ease-in-out ${
+					sidebarOpen ? 'translate-x-0' : '-translate-x-107'
+				}`}
 			>
-				<div className='flex w-full my-10 justify-center items-center gap-3'>
-					<GraduationCap color='#820000' size={96} />
-					<h1 className='font-black text-black text-4xl'>МелГУ СУО</h1>
-				</div>
-				<div className='bg-white p-2 rounded-xl gap-1 w-6/7 mx-auto'>
-					<SBLink to={'home'} chapter_name={'Главная'} icon={House} />
-					<SBLink
-						to={'dashboard'}
-						chapter_name={'Дашборд'}
-						icon={PanelsTopLeft}
-					/>
-					<SBLink to={'calendar'} chapter_name={'Календарь'} icon={Calendar} />
-					<SBLink
-						to={'private-files'}
-						chapter_name={'Личные файлы'}
-						icon={Inbox}
-					/>
-					<SBLink
-						to={'get-this-theme'}
-						chapter_name={'Получите эту тему'}
-						icon={ShoppingCart}
-					/>
-				</div>
-			</Sidebar>
+				<Sidebar
+					username={user.full_name.split(' ')}
+					role={roles.join(', ')}
+					img_path={getAvatar()}
+				>
+					<div className='flex w-full my-10 justify-center items-center gap-3'>
+						<GraduationCap color='#820000' size={96} />
+						<h1 className='font-black text-black text-4xl'>МелГУ СУО</h1>
+					</div>
+					<div className='bg-white p-2 rounded-xl gap-1 w-6/7 mx-auto'>
+						<SBLink to={'home'} chapter_name={'Главная'} icon={House} />
+						<SBLink
+							to={'dashboard'}
+							chapter_name={'Дашборд'}
+							icon={PanelsTopLeft}
+						/>
+						<SBLink
+							to={'calendar'}
+							chapter_name={'Календарь'}
+							icon={Calendar}
+						/>
+						<SBLink
+							to={'private-files'}
+							chapter_name={'Личные файлы'}
+							icon={Inbox}
+						/>
+						<SBLink
+							to={'get-this-theme'}
+							chapter_name={'Получите эту тему'}
+							icon={ShoppingCart}
+						/>
+					</div>
+				</Sidebar>
+			</div>
 
-			<main className='ml-105 p-4'>
-				<Header />
-				<Outlet />
-			</main>
-		</>
+			{/* Main content */}
+			<div
+				className={`flex-1 min-h-screen transition-all duration-300 ease-in-out ${
+					sidebarOpen ? 'ml-103' : '-ml-4'
+				}`}
+			>
+				<div className='p-4'>
+					<Header
+						toggleSidebar={toggleSidebar}
+						sidebarOpen={sidebarOpen}
+						img_path={getAvatar()}
+						UserName={user.full_name}
+						Email={user.email}
+						Role={'Студент'}
+					/>
+					<Outlet />
+				</div>
+			</div>
+		</div>
 	)
 }

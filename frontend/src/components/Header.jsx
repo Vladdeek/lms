@@ -1,24 +1,157 @@
-import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
+import {
+	GraduationCap,
+	Info,
+	InfoIcon,
+	MessageSquare,
+	MessagesSquare,
+	PanelLeftClose,
+	PanelLeftOpen,
+} from 'lucide-react'
 import { useState } from 'react'
-import { Dropdown } from './Components'
+import {
+	ChangeLang,
+	Dropdown,
+	HeaderBtn,
+	InDropdown,
+	Link,
+	Profile,
+	Search,
+	ToggleTheme,
+} from './Components'
 
-const Header = () => {
-	const [isOpen, setIsOpen] = useState(false)
+const Header = ({
+	toggleSidebar,
+	sidebarOpen,
+	img_path,
+	UserName,
+	Email,
+	Role,
+}) => {
+	const [searchIsOpen, setSearchIsOpen] = useState(false)
+	const [activeDropdown, setActiveDropdown] = useState(null)
+
+	const handleToggle = dropdownName => {
+		setActiveDropdown(activeDropdown === dropdownName ? null : dropdownName)
+	}
 	return (
 		<>
-			<div className='flex px-4'>
-				<div
-					className={`${
-						!isOpen ? 'bg-[#82000010]' : 'bg-[#00000010]'
-					} rounded-xl p-4`}
-				>
-					{!isOpen ? (
-						<PanelLeftClose color='#820000' size={28} />
-					) : (
-						<PanelLeftOpen color='#181818' size={28} />
-					)}
+			<div className='flex px-4 pb-4 border-b-1 justify-between border-stone-200'>
+				<div className='flex gap-3'>
+					<div
+						onClick={toggleSidebar}
+						className={`${
+							sidebarOpen ? 'bg-[#82000010]' : 'bg-[#00000010]'
+						} rounded-xl p-4 cursor-pointer relative group`}
+					>
+						{sidebarOpen ? (
+							<PanelLeftClose color='#820000' size={28} />
+						) : (
+							<PanelLeftOpen color='#181818' size={28} />
+						)}
+						<span className='relative'>
+							<span className='absolute top-2/3 mt-2 px-2 py-1 bg-stone-800 text-white text-md font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap'>
+								{sidebarOpen ? 'Убрать боковое меню' : 'Показать боковое меню'}
+							</span>
+						</span>
+					</div>
+					<div className='flex justify-center items-center h-15 mx-5 hover:opacity-75 transition-all cursor-pointer'>
+						<GraduationCap color='#820000' size={48} />
+					</div>
+					<ChangeLang ChapterName={'Рус'}>
+						<InDropdown content={'Русский'} />
+					</ChangeLang>
+					<Dropdown
+						ChapterName={'Курсы'}
+						isOpen={activeDropdown === 'courses'}
+						onToggle={() => handleToggle('courses')}
+					>
+						<InDropdown content={'Все курсы'} to={'courses'} />
+						<InDropdown content={'Поиск курсов'} />
+						<div className='border-t-1 flex flex-col gap-1 p-1 border-stone-200'>
+							<InDropdown content={'Темы документации'} />
+						</div>
+					</Dropdown>
+
+					<HeaderBtn ChapterName={'Докс'} />
+
+					<Dropdown
+						ChapterName={'Сервер'}
+						isOpen={activeDropdown === 'server'}
+						onToggle={() => handleToggle('server')}
+					>
+						<InDropdown content={'kylos'} />
+						<InDropdown content={'Hostinger'} />
+						<InDropdown content={'ScalaHosting'} />
+					</Dropdown>
+
+					<Dropdown
+						ChapterName={'Версии'}
+						isOpen={activeDropdown === 'versions'}
+						onToggle={() => handleToggle('versions')}
+					>
+						<InDropdown content={'For moodle 3.9 - 3.11'} />
+					</Dropdown>
+
+					<Dropdown
+						ChapterName={'Темы Moodle'}
+						isOpen={activeDropdown === 'themes'}
+						onToggle={() => handleToggle('themes')}
+					>
+						<InDropdown content={'Universe (new)'} />
+						<InDropdown content={'Space 2'} />
+						<InDropdown content={'Alpha 2'} />
+						<InDropdown content={'Monocolor'} />
+						<InDropdown content={'BAZ'} />
+						<InDropdown content={'IOMAD Moon'} />
+					</Dropdown>
 				</div>
-				<Dropdown />
+				<div className='flex h-15 gap-3'>
+					{!searchIsOpen && (
+						<>
+							<div className='flex justify-center items-center h-full mx-5 hover:opacity-75 transition-all cursor-pointer'>
+								<GraduationCap color='#820000' size={24} />
+							</div>
+							<div className='flex flex-col pr-4 border-r-1 border-stone-200'>
+								<p className='font-medium text-xl'>МелГУ СУО 1.1</p>
+								<Link text={'Получите эту тему сегодня!'} ref={'#'} />
+							</div>
+						</>
+					)}
+
+					<Search
+						onClick={() => setSearchIsOpen(!searchIsOpen)}
+						searchIsOpen={searchIsOpen}
+					/>
+					<ToggleTheme />
+					<button className='hover:bg-[#82000010] hover:text-[#820000] h-15 w-15 rounded-lg flex justify-center items-center transition-all'>
+						<MessagesSquare size={42} className='p-2' />
+					</button>
+					<Profile img_path={img_path}>
+						<div className='p-4 pr-20'>
+							<p className='font-medium text-xl whitespace-nowrap'>
+								{UserName}
+							</p>
+							<p className='font-normal  text-xl whitespace-nowrap'>{Email}</p>
+							<div className='flex items-center gap-2 mt-3'>
+								<Info />
+								<p className='font-normal text-lg'>{Role}</p>
+							</div>
+						</div>
+
+						<div className='border-t-1 flex flex-col gap-1 p-1 border-stone-200'>
+							<InDropdown content={'Дашборд'} />
+							<InDropdown content={'Контент'} />
+						</div>
+						<div className='border-t-1 flex flex-col gap-1 p-1 border-stone-200'>
+							<InDropdown content={'Оценки'} />
+							<InDropdown content={'Отчеты'} />
+						</div>
+						<div className='border-t-1 flex flex-col gap-1 p-1 border-stone-200'>
+							<InDropdown content={'Настройки'} />
+							<InDropdown content={'Выйти'} />
+						</div>
+					</Profile>
+				</div>
 			</div>
 		</>
 	)

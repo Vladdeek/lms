@@ -18,7 +18,7 @@ export default function Sidebar({ username, role, img_path, children }) {
 			</nav>
 
 			{/* ——— версия ——— */}
-			<p className='mb-2 ml-4 text-white font-semibold'>Версия 0.0.1.4</p>
+			<p className='mb-2 ml-4 text-white font-medium'>Версия 0.0.1.4</p>
 		</aside>
 	)
 }
@@ -36,8 +36,8 @@ export const SBLink = ({ to, chapter_name, icon: Icon }) => (
 				].join(' ')
 			}
 		>
-			<Icon className='text-current group-hover:text-[#820000]' />
-			<span className='flex-1 pb-[2px] whitespace-nowrap font-semibold text-xl'>
+			<Icon className='text-current opacity-75 group-hover:text-[#820000]' />
+			<span className='flex-1 pb-[2px] whitespace-nowrap font-medium text-xl pt-1'>
 				{chapter_name}
 			</span>
 		</NavLink>
@@ -54,7 +54,7 @@ export const SBLinkButton = ({ onClick, chapter_name, icon: Icon }) => (
 		'
 		>
 			<Icon className='text-current group-hover:text-[#820000]' />
-			<span className='flex-1 pb-[2px] whitespace-nowrap font-semibold group-hover:text-[#820000]'>
+			<span className='flex-1 pb-[2px] whitespace-nowrap font-medium group-hover:text-[#820000]'>
 				{chapter_name}
 			</span>
 		</button>
