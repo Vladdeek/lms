@@ -16,12 +16,18 @@ import {
 	ChevronsUpDown,
 	Book,
 	BookOpen,
+	ChevronLeft,
 	ChevronRight,
 	TrendingUp,
 	ArrowLeft,
+	File,
+	Folder,
+	FolderOpen,
+	ChevronsDown,
 } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+
 const Input = ({ children, placeholder }) => {
 	return (
 		<div className='flex h-20 w-4/5 gap-3 justify-between items-center border-1 border-[#00000010] shadow-md shadow-[#00000010] rounded-xl p-3 focus-within:outline-4  focus-within:border-[#820000] focus-within:border-2 outline-[#82000099]'>
@@ -69,24 +75,26 @@ const Submit = () => {
 	)
 }
 
-const Link = ({ text }) => {
+const Link = ({ text, to }) => {
 	return (
-		<button className='text-xl font-medium text-stone-600 relative group mb-3 cursor-pointer'>
-			<span className='relative inline-block hover:text-[#820000]'>
-				{text}
-				<span
-					className='absolute left-0 bottom-[-0.25rem] h-0.5 bg-[#820000] rounded 
+		<NavLink to={to}>
+			<button className='text-xl font-medium text-stone-600 relative group mb-3 cursor-pointer'>
+				<span className='relative inline-block hover:text-[#820000]'>
+					{text}
+					<span
+						className='absolute left-0 bottom-[-0.25rem] h-0.5 bg-[#820000] rounded 
 					 transition-all duration-400 ease-in-out
 					 w-0 group-hover:w-full'
-				></span>
-				<span
-					className='absolute left-0 bottom-[-0.25rem] h-0.5 bg-[#820000] rounded 
+					></span>
+					<span
+						className='absolute left-0 bottom-[-0.25rem] h-0.5 bg-[#820000] rounded 
 					 transition-all duration-400 ease-in-out
 					 w-full scale-x-100 origin-right
 					 opacity-0 group-hover:opacity-100 group-hover:scale-x-0'
-				></span>
-			</span>
-		</button>
+					></span>
+				</span>
+			</button>
+		</NavLink>
 	)
 }
 
@@ -119,7 +127,7 @@ const Dropdown = ({ children, ChapterName, isOpen, onToggle }) => {
 	)
 }
 
-const Accordion = ({ children, ChapterName }) => {
+const Accordion = ({ children, ChapterName, to }) => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	return (
@@ -146,9 +154,12 @@ const Accordion = ({ children, ChapterName }) => {
 							<BookOpen size={22} />
 							<p className='font-medium text-md'>4</p>
 						</div>
-						<div className='flex items-center bg-[#82000010] text-[#820000] hover:bg-[#82000025] rounded-md p-2 px-4 font-medium transition-all'>
+						<NavLink
+							className='flex items-center bg-[#82000010] text-[#820000] hover:bg-[#82000025] rounded-md p-2 px-4 font-medium transition-all'
+							to={to}
+						>
 							<p>Показать все курсы</p>
-						</div>
+						</NavLink>
 					</div>
 				</div>
 			</div>
@@ -159,11 +170,23 @@ const Accordion = ({ children, ChapterName }) => {
 					isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
 				} transition-all duration-300 overflow-hidden`}
 			>
-				<div className='flex p-4 border-t-1 gap-3 border-stone-200'>
+				<div className='grid grid-cols-4 p-4 border-t-1 gap-3 border-stone-200'>
 					{children}
 				</div>
 			</div>
 		</div>
+	)
+}
+const CoursesBtn = ({ ChapterName, to }) => {
+	return (
+		<NavLink to={to}>
+			<div className='flex text-black hover:text-[#820000] hover:bg-[#82000010] hover:border-[#82000025] border-1 border-stone-200 transition-all cursor-pointer rounded-xl h-20 p-4 overflow-hidden'>
+				<div className='flex w-full justify-start gap-4 items-center'>
+					<FolderOpen />
+					<p className={`font-normal text-xl`}>{ChapterName}</p>
+				</div>
+			</div>
+		</NavLink>
 	)
 }
 
@@ -205,6 +228,55 @@ const Option = ({ options, selectedValue, onSelect }) => {
 								option.value === selectedValue
 									? 'bg-[#82000010] text-[#820000]'
 									: 'hover:bg-[#82000010] hover:text-[#820000]'
+							}`}
+							onClick={() => {
+								onSelect(option.value)
+								setIsOpen(false)
+							}}
+						>
+							{option.label}
+						</div>
+					))}
+				</div>
+			)}
+		</div>
+	)
+}
+
+const OptionAlt = ({ options, selectedValue, onSelect }) => {
+	const [isOpen, setIsOpen] = useState(false)
+
+	// Находим выбранный элемент для отображения
+	const selectedOption = options.find(opt => opt.value === selectedValue)
+
+	return (
+		<div className='relative inline-block w-75'>
+			<div
+				className={`flex items-center gap-3 justify-between p-4 bg-stone-100 rounded-lg cursor-pointer transition-colors ${
+					isOpen
+						? 'bg-stone-200'
+						: ' hover:bg-stone-200 text-stone-500 hover:text-stone-700'
+				}`}
+				onClick={() => setIsOpen(!isOpen)}
+			>
+				<span className={`text-lg `}>
+					{selectedOption?.label || 'Выберите вариант'}
+				</span>
+				<ChevronDown
+					className={`w-5 h-5 transition-transform  ${
+						isOpen && 'text-stone-800'
+					}`}
+				/>
+			</div>
+			{isOpen && (
+				<div className='absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden'>
+					{options.map(option => (
+						<div
+							key={option.value}
+							className={`p-3 cursor-pointer transition-colors ${
+								option.value === selectedValue
+									? 'bg-stone-100 text-stone-700'
+									: 'hover:bg-stone-100 hover:text-stone-700'
 							}`}
 							onClick={() => {
 								onSelect(option.value)
@@ -415,7 +487,7 @@ const CourseCard = ({
 	isProgressbar,
 }) => {
 	return (
-		<div className='border-1 border-stone-200 rounded-lg flex flex-col overflow-hidden w-1/4'>
+		<div className='border-1 border-stone-200 rounded-lg flex flex-col overflow-hidden w-full'>
 			<img className='w-full h-85 object-cover' src={img_path} alt='' />
 			<div className='flex h-75 flex-col gap-3 p-5'>
 				<a
@@ -472,4 +544,6 @@ export {
 	Accordion,
 	CourseCard,
 	Button,
+	CoursesBtn,
+	OptionAlt,
 }
