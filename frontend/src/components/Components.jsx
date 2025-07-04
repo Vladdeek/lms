@@ -252,14 +252,12 @@ const OptionAlt = ({ options, selectedValue, onSelect }) => {
 	return (
 		<div className='relative inline-block w-75'>
 			<div
-				className={`flex items-center gap-3 justify-between p-4 bg-stone-100 rounded-lg cursor-pointer transition-colors ${
-					isOpen
-						? 'bg-stone-200'
-						: ' hover:bg-stone-200 text-stone-500 hover:text-stone-700'
+				className={`flex items-center gap-3 justify-between p-4 text-stone-900 font-medium bg-stone-100 rounded-lg cursor-pointer transition-colors ${
+					isOpen ? 'bg-stone-200' : ' hover:bg-stone-200 '
 				}`}
 				onClick={() => setIsOpen(!isOpen)}
 			>
-				<span className={`text-lg `}>
+				<span className={`text-2xl `}>
 					{selectedOption?.label || 'Выберите вариант'}
 				</span>
 				<ChevronDown
@@ -458,20 +456,22 @@ const Profile = ({ children, img_path }) => {
 	)
 }
 
-const Button = ({ img, namebtn }) => {
+const Button = ({ img, namebtn, children }) => {
 	return (
 		<>
-			<button className='bg-[#820000] hover:bg-[#82000025] hover:text-[#820000] active:scale-97 transition-all inline-flex gap-4 text-white font-medium p-4 px-10 text-lg justify-between rounded-md'>
-				{img !== 'left' ? (
+			<button className='bg-[#820000] hover:bg-[#82000025] hover:text-[#820000] active:scale-97 transition-all inline-flex gap-4 text-white font-medium p-4 px-10 text-lg justify-between items-center rounded-md'>
+				{img === 'right' ? (
 					<>
 						<p>{namebtn}</p>
 						<ArrowRight />
 					</>
-				) : (
+				) : img === 'left' ? (
 					<>
 						<ArrowLeft />
 						<p>{namebtn}</p>
 					</>
+				) : (
+					children
 				)}
 			</button>
 		</>

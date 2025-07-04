@@ -29,7 +29,7 @@ const AllCourses = () => {
 						<p>-</p>
 						<Link text={'Courses'} />
 					</div>
-					<p className='text-5xl font-bold mb-4'>МелГУ СУО 1.1</p>
+					<p className='text-5xl font-bold mb-4'>МелГУ СУО 1.2</p>
 					<div className='inline-flex items-center gap-6'>
 						<Option
 							options={chapters}

@@ -112,7 +112,7 @@ const Header = ({
 								<GraduationCap color='#820000' size={24} />
 							</div>
 							<div className='flex flex-col pr-4 border-r-1 border-stone-200'>
-								<p className='font-medium text-xl'>МелГУ СУО 1.1</p>
+								<p className='font-medium text-xl'>МелГУ СУО 1.2</p>
 								<Link text={'Получите эту тему сегодня!'} ref={'#'} />
 							</div>
 						</>

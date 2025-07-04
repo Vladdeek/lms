@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import {
+	Button,
 	Link,
 	Option,
 	OptionAlt,
 	SearchDefault,
 } from '../components/Components'
 import Calendar from '../components/Calendar'
+import { CalendarPlus } from 'lucide-react'
 
 const CalendarPage = () => {
 	const chapters1 = [
@@ -32,18 +34,25 @@ const CalendarPage = () => {
 					<Link text={'Calendar'} />
 				</div>
 				<p className='text-5xl font-bold mb-4'>Календарь</p>
-				<div className='inline-flex items-center gap-6'>
-					<OptionAlt
-						options={chapters1}
-						selectedValue={selectedChapter1}
-						onSelect={setSelectedChapter1}
-					/>
-					<Option
-						options={chapters2}
-						selectedValue={selectedChapter2}
-						onSelect={setSelectedChapter2}
-					/>
+				<div className='flex justify-between'>
+					<div className='inline-flex items-center gap-6'>
+						<OptionAlt
+							options={chapters1}
+							selectedValue={selectedChapter1}
+							onSelect={setSelectedChapter1}
+						/>
+						<Option
+							options={chapters2}
+							selectedValue={selectedChapter2}
+							onSelect={setSelectedChapter2}
+						/>
+					</div>
+					<Button img={'other'}>
+						<p>Новое событие</p>
+						<CalendarPlus />
+					</Button>
 				</div>
+
 				<Calendar />
 			</div>
 		</div>
