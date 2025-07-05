@@ -174,7 +174,7 @@ const Accordion = ({ children, ChapterName, to }) => {
 					isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
 				} transition-all duration-300 overflow-hidden`}
 			>
-				<div className='grid grid-cols-4 p-4 border-t-1 gap-3 border-stone-200'>
+				<div className='grid grid-cols-4 p-4 border-t-1 gap-5 border-stone-200'>
 					{children}
 				</div>
 			</div>
@@ -462,10 +462,14 @@ const Profile = ({ children, img_path }) => {
 	)
 }
 
-const Button = ({ img, namebtn, children }) => {
+const Button = ({ img, namebtn, children, scale }) => {
 	return (
 		<>
-			<button className='bg-[#820000] hover:bg-[#82000025] hover:text-[#820000] active:scale-97 transition-all inline-flex gap-4 text-white font-medium p-4 px-10 text-lg justify-between items-center rounded-md'>
+			<button
+				className={`bg-[#820000] hover:bg-[#82000025] hover:text-[#820000] active:scale-97 transition-all inline-flex gap-4 text-white font-medium p-4 px-10 text-lg justify-between items-center rounded-md ${
+					!scale ? 'w-full justify-center' : scale
+				}`}
+			>
 				{img === 'right' ? (
 					<>
 						<p>{namebtn}</p>
@@ -493,31 +497,32 @@ const CourseCard = ({
 	isProgressbar,
 }) => {
 	return (
-		<div className='border-1 border-stone-200 rounded-lg flex flex-col overflow-hidden w-full'>
-			<img className='w-full h-85 object-cover' src={img_path} alt='' />
-			<div className='flex h-75 flex-col gap-3 p-5'>
+		<div className='border-1 border-stone-200 h-134 rounded-lg flex flex-col overflow-hidden w-full'>
+			<img className='w-full h-4/10 object-cover' src={img_path} alt='' />
+			<div className='flex flex-col h-5/10 gap-3 p-5'>
 				<a
 					href='#'
-					className='font-bold text-2xl hover:text-[#820000] transition-all'
+					className='font-bold text-md hover:text-[#820000] transition-all'
 				>
 					{title}
 				</a>
-				<p className='text-2xl font-light text-stone-500 mb-4'>{description}</p>
+				<p className='text-sm font-light text-stone-500 mb-4'>{description}</p>
 				<p className='bg-stone-100 w-fit text-stone-500 rounded-lg px-3 py-1 font-medium text-lg'>
 					{tag}
 				</p>
 			</div>
 			{!isProgressbar ? (
 				<>
-					<div className='flex items-center gap-4 border-t-1 border-stone-200 p-5 pb-7'>
+					<div className='flex h-1/10 items-center gap-4 border-t-1 border-stone-200 p-5 pb-7'>
 						<TrendingUp size={32} />
 						<div className='flex flex-col w-full'>
 							<p>
-								<span className='font-semibold'>{procent}%</span> Выполнено
+								<span className='font-semibold text-xs'>{procent}%</span>{' '}
+								Выполнено
 							</p>
-							<div className='w-full h-3 bg-stone-200 rounded-full overflow-hidden'>
+							<div className='w-full h-2 bg-stone-200 rounded-full overflow-hidden'>
 								<div
-									className='h-3 rounded-full bg-gradient-to-r from-[#820000] to-[#c10f1a]'
+									className='h-2 rounded-full bg-gradient-to-r from-[#820000] to-[#c10f1a]'
 									style={{ width: `${procent}%` }}
 								></div>
 							</div>
@@ -525,7 +530,7 @@ const CourseCard = ({
 					</div>
 				</>
 			) : (
-				<div className='p-3 flex justify-end'>
+				<div className='pb-3 px-3 h-1/10 flex w-full justify-end'>
 					<Button namebtn={'Получить'} img={'right'} />
 				</div>
 			)}

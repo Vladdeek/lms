@@ -25,11 +25,11 @@ const AllCourses = () => {
 			<div className='py-10 px-25'>
 				<div className='flex flex-col gap-5'>
 					<div className='inline-flex gap-3'>
-						<Link text={'Dashboard'} />
+						<Link size={'text-xs'} text={'Dashboard'} />
 						<p>-</p>
-						<Link text={'Courses'} />
+						<Link size={'text-xs'} text={'Courses'} />
 					</div>
-					<p className='text-5xl font-bold mb-4'>МелГУ СУО 1.2</p>
+					<p className='text-4xl font-bold mb-4'>МелГУ СУО 1.2</p>
 					<div className='inline-flex items-center gap-6'>
 						<Option
 							options={chapters}
