@@ -50,7 +50,7 @@ export default function DashboardLayout() {
 		<div className='flex min-h-screen'>
 			{/* Sidebar */}
 			<div
-				className={`fixed h-full w-103 bg-white z-10 transition-transform duration-300 ease-in-out ${
+				className={`fixed h-full w-65 bg-white z-10 transition-transform duration-300 ease-in-out ${
 					sidebarOpen ? 'translate-x-0' : '-translate-x-107'
 				}`}
 			>
@@ -60,10 +60,10 @@ export default function DashboardLayout() {
 					img_path={getAvatar()}
 				>
 					<div className='flex w-full my-10 justify-center items-center gap-3'>
-						<GraduationCap color='#820000' size={96} />
-						<h1 className='font-black text-black text-4xl'>МелГУ СУО</h1>
+						<GraduationCap color='#820000' size={48} />
+						<h1 className='font-black text-black text-xl'>МелГУ СУО</h1>
 					</div>
-					<div className='bg-white p-2 rounded-xl gap-1 w-6/7 mx-auto'>
+					<div className='bg-white p-2 rounded-xl gap-1 w-8/9 mx-auto'>
 						<SBLink to={'home'} chapter_name={'Главная'} icon={House} />
 						<SBLink
 							to={'dashboard'}
@@ -92,10 +92,10 @@ export default function DashboardLayout() {
 			{/* Main content */}
 			<div
 				className={`flex-1 min-h-screen transition-all duration-300 ease-in-out ${
-					sidebarOpen ? 'ml-103' : '-ml-4'
+					sidebarOpen ? 'ml-65' : '-ml-0'
 				}`}
 			>
-				<div className='p-4'>
+				<div className='p-2 w-full'>
 					<Header
 						toggleSidebar={toggleSidebar}
 						sidebarOpen={sidebarOpen}

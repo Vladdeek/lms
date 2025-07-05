@@ -75,10 +75,14 @@ const Submit = () => {
 	)
 }
 
-const Link = ({ text, to }) => {
+const Link = ({ text, to, size }) => {
 	return (
 		<NavLink to={to}>
-			<button className='text-xl font-medium text-stone-600 relative group mb-3 cursor-pointer'>
+			<button
+				className={`${
+					!size ? 'text-sm' : size
+				} font-medium text-stone-600 relative group mb-3 cursor-pointer whitespace-nowrap`}
+			>
 				<span className='relative inline-block hover:text-[#820000]'>
 					{text}
 					<span
@@ -100,14 +104,14 @@ const Link = ({ text, to }) => {
 
 const Dropdown = ({ children, ChapterName, isOpen, onToggle }) => {
 	return (
-		<div className='flex flex-col relative'>
+		<div className='flex flex-col relative '>
 			<div
 				className={`${
 					isOpen ? 'bg-[#82000010] ' : 'hover:bg-[#82000010] '
-				} flex text-black hover:text-[#820000] h-15 justify-center items-center px-7 rounded-xl gap-1 transition-all cursor-pointer`}
+				} flex text-black hover:text-[#820000] justify-center items-center px-3 h-12 rounded-sm gap-1 transition-all cursor-pointer`}
 				onClick={onToggle}
 			>
-				<p className={`${isOpen && 'text-[#820000]'} font-medium text-xl`}>
+				<p className={`${isOpen && 'text-[#820000]'} font-medium text-sm`}>
 					{ChapterName}
 				</p>
 				<ChevronDown
@@ -118,7 +122,7 @@ const Dropdown = ({ children, ChapterName, isOpen, onToggle }) => {
 			</div>
 			{isOpen && (
 				<div
-					className={`bg-white flex flex-col absolute top-full left-0 z-50 shadow-md p-1 rounded-xl`}
+					className={`bg-white flex flex-col absolute top-full left-0 z-50 shadow-md p-1 rounded-md`}
 				>
 					{children}
 				</div>
@@ -293,7 +297,7 @@ const OptionAlt = ({ options, selectedValue, onSelect }) => {
 const InDropdown = ({ content, to }) => {
 	return (
 		<NavLink to={to}>
-			<p className='hover:bg-[#82000010] hover:text-[#820000] rounded-lg text-xl font-medium select-none transition-all px-4 py-2'>
+			<p className='hover:bg-[#82000010] hover:text-[#820000] rounded-lg text-xs font-medium select-none transition-all px-4 py-2'>
 				{content}
 			</p>
 		</NavLink>
@@ -303,9 +307,9 @@ const HeaderBtn = ({ ChapterName }) => {
 	return (
 		<div className='flex flex-col relative'>
 			<div
-				className={`hover:bg-[#82000010] flex text-black hover:text-[#820000] h-15 justify-center items-center px-7 rounded-xl gap-1 transition-all cursor-pointer`}
+				className={`hover:bg-[#82000010] flex text-black hover:text-[#820000] justify-center items-center px-3 h-12 rounded-md gap-1 transition-all cursor-pointer`}
 			>
-				<p className={` font-medium text-xl`}>{ChapterName}</p>
+				<p className={` font-medium text-sm`}>{ChapterName}</p>
 			</div>
 		</div>
 	)
@@ -319,13 +323,15 @@ const ChangeLang = ({ children, ChapterName }) => {
 			<div
 				className={`${
 					isOpen ? 'bg-[#82000010] ' : 'bg-stone-100 hover:bg-[#82000010] '
-				} flex text-black hover:text-[#820000] h-15 justify-center items-center px-7 rounded-xl gap-1 transition-all cursor-pointer`}
+				} flex text-black hover:text-[#820000] h-12 justify-center items-center px-3 rounded-md gap-1 transition-all cursor-pointer`}
 				onClick={() => setIsOpen(!isOpen)}
 			>
 				<Flag
-					className={`${isOpen ? 'text-[#820000]' : 'hover:text-[#820000]'}`}
+					className={`${
+						isOpen ? 'text-[#820000]' : 'hover:text-[#820000]'
+					} p-1`}
 				/>
-				<p className={`${isOpen && 'text-[#820000]'} font-medium text-xl`}>
+				<p className={`${isOpen && 'text-[#820000]'} font-medium text-sm`}>
 					{ChapterName}
 				</p>
 			</div>
@@ -346,15 +352,15 @@ const Search = ({ searchIsOpen, onClick }) => {
 			<div
 				className={`${
 					searchIsOpen &&
-					'flex items-center shadow-md shadow-stone-200 border-1 border-stone-100 focus-within:outline-3 outline-[#82000099] rounded-lg pr-2'
+					'flex items-center shadow-md shadow-stone-200 border-1 border-stone-100 focus-within:outline-3 outline-[#82000099] rounded-md h-12 pr-2'
 				}`}
 			>
 				<SearchIcon
 					className={`${
 						!searchIsOpen &&
 						'hover:bg-[#82000010] hover:text-[#820000] cursor-pointer'
-					} h-15 w-15 flex justify-center items-center rounded-lg p-4`}
-					size={28}
+					} h-12 w-12 inline-flex justify-center items-center rounded-md p-3`}
+					size={24}
 					onClick={!searchIsOpen && onClick}
 				/>
 				{searchIsOpen && (
@@ -362,16 +368,16 @@ const Search = ({ searchIsOpen, onClick }) => {
 						<input
 							type='text'
 							placeholder='Поиск'
-							className='outline-0 h-full text-xl'
+							className='outline-0 text-md h-full w-[175px]'
 						/>
 						<X
-							className='hover:bg-[#82000010] hover:text-[#820000] rounded-full p-3'
-							size={48}
+							className='hover:bg-[#82000010] hover:text-[#820000] rounded-full  p-1 transition-all'
+							size={32}
 							onClick={searchIsOpen && onClick}
 						/>
 						<ArrowRight
-							className='hover:bg-[#00008210] hover:text-[#000082] rounded-full p-3'
-							size={48}
+							className='hover:bg-[#00008210] hover:text-[#000082] rounded-full p-1 transition-all'
+							size={32}
 						/>
 					</>
 				)}
@@ -413,7 +419,7 @@ const ToggleTheme = () => {
 					!ThemeStatus
 						? 'bg-orange-100 text-stone-700 hover:bg-stone-950 hover:text-white'
 						: ''
-				}  h-15 w-15 rounded-lg flex justify-center items-center transition-all  relative group`}
+				}  h-12 w-12 rounded-lg flex justify-center items-center transition-all  relative group`}
 			>
 				{!ThemeStatus ? (
 					<>
@@ -435,11 +441,11 @@ const Profile = ({ children, img_path }) => {
 	return (
 		<div className='flex flex-col relative'>
 			<div
-				className={` flex text-black h-15 justify-center items-center rounded-xl gap-1 transition-all cursor-pointer`}
+				className={` flex text-black justify-center items-center rounded-xl gap-1 transition-all cursor-pointer`}
 				onClick={() => setIsOpen(!isOpen)}
 			>
 				<img
-					className='rounded-lg border-1 border-stone-200 select-none'
+					className='rounded-lg border-1 border-stone-200 select-none h-12'
 					src={img_path}
 					alt=''
 				/>

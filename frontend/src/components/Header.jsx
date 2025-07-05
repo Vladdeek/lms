@@ -35,13 +35,13 @@ const Header = ({
 	}
 	return (
 		<>
-			<div className='flex px-4 pb-4 border-b-1 justify-between border-stone-200'>
-				<div className='flex gap-3'>
+			<div className='flex px-2 pb-2 border-b-1 justify-between border-stone-200'>
+				<div className='flex gap-1'>
 					<div
 						onClick={toggleSidebar}
 						className={`${
 							sidebarOpen ? 'bg-[#82000010]' : 'bg-[#00000010]'
-						} rounded-xl p-4 cursor-pointer relative group`}
+						} rounded-xl h-12 w-12 flex justify-center items-center p-2 cursor-pointer relative group`}
 					>
 						{sidebarOpen ? (
 							<PanelLeftClose color='#820000' size={28} />
@@ -49,13 +49,13 @@ const Header = ({
 							<PanelLeftOpen color='#181818' size={28} />
 						)}
 						<span className='relative'>
-							<span className='absolute top-2/3 mt-2 px-2 py-1 bg-stone-800 text-white text-md font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap'>
+							<span className='absolute top-10 mt-2 px-2 py-1 bg-stone-800 text-white text-md font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap'>
 								{sidebarOpen ? 'Убрать боковое меню' : 'Показать боковое меню'}
 							</span>
 						</span>
 					</div>
-					<div className='flex justify-center items-center h-15 mx-5 hover:opacity-75 transition-all cursor-pointer'>
-						<GraduationCap color='#820000' size={48} />
+					<div className='flex justify-center items-center h-12 mx-5 hover:opacity-75 transition-all cursor-pointer'>
+						<GraduationCap color='#820000' size={32} />
 					</div>
 					<ChangeLang ChapterName={'Рус'}>
 						<InDropdown content={'Русский'} />
@@ -105,15 +105,19 @@ const Header = ({
 						<InDropdown content={'IOMAD Moon'} />
 					</Dropdown>
 				</div>
-				<div className='flex h-15 gap-3'>
+				<div className='inline-flex h-12 gap-1'>
 					{!searchIsOpen && (
 						<>
 							<div className='flex justify-center items-center h-full mx-5 hover:opacity-75 transition-all cursor-pointer'>
 								<GraduationCap color='#820000' size={24} />
 							</div>
 							<div className='flex flex-col pr-4 border-r-1 border-stone-200'>
-								<p className='font-medium text-xl'>МелГУ СУО 1.2</p>
-								<Link text={'Получите эту тему сегодня!'} ref={'#'} />
+								<p className='font-medium text-xs'>МелГУ СУО 1.2</p>
+								<Link
+									size={'text-xs'}
+									text={'Получите эту тему сегодня!'}
+									ref={'#'}
+								/>
 							</div>
 						</>
 					)}
@@ -123,7 +127,7 @@ const Header = ({
 						searchIsOpen={searchIsOpen}
 					/>
 					<ToggleTheme />
-					<button className='hover:bg-[#82000010] hover:text-[#820000] h-15 w-15 rounded-lg flex justify-center items-center transition-all'>
+					<button className='hover:bg-[#82000010] hover:text-[#820000] h-12 w-12 rounded-lg flex justify-center items-center transition-all'>
 						<MessagesSquare size={42} className='p-2' />
 					</button>
 					<Profile img_path={img_path}>

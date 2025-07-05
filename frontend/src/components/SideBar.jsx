@@ -7,18 +7,15 @@ export default function Sidebar({ username, role, img_path, children }) {
 		<aside
 			id='logo-sidebar'
 			className='
-        fixed top-0 left-0 z-40 w-107 h-screen
+        fixed top-0 left-0 z-40 w-65 h-screen
         transition-transform -translate-x-full sm:translate-x-0
         bg-stone-100 text-white flex flex-col'
 			aria-label='Sidebar'
 		>
 			{/* ——— меню ——— */}
 			<nav className='flex-1 overflow-y-auto px-3 py-4'>
-				<ul className='space-y-2 font-medium flex flex-col'>{children}</ul>
+				<ul className=' font-medium flex flex-col'>{children}</ul>
 			</nav>
-
-			{/* ——— версия ——— */}
-			<p className='mb-2 ml-4 text-white font-medium'>Версия 0.0.1.4</p>
 		</aside>
 	)
 }
@@ -29,15 +26,15 @@ export const SBLink = ({ to, chapter_name, icon: Icon }) => (
 			to={to}
 			className={({ isActive }) =>
 				[
-					'flex items-center rounded-lg gap-3 cursor-pointer transition h-15 p-4',
+					'flex items-center rounded-lg gap-3 cursor-pointer transition h-10 p-4',
 					isActive
 						? 'bg-[#82000010] text-[#820000]'
 						: 'hover:bg-[#82000010] hover:text-[#820000] text-black',
 				].join(' ')
 			}
 		>
-			<Icon className='text-current opacity-75 group-hover:text-[#820000]' />
-			<span className='flex-1 pb-[2px] whitespace-nowrap font-medium text-xl pt-1'>
+			<Icon className='text-current h-5 opacity-75 group-hover:text-[#820000]' />
+			<span className='flex-1 pb-[2px] whitespace-nowrap font-medium text-sm pt-1'>
 				{chapter_name}
 			</span>
 		</NavLink>
