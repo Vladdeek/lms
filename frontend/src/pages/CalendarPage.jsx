@@ -49,10 +49,12 @@ const CalendarPage = () => {
 							onSelect={setSelectedChapter2}
 						/>
 					</div>
-					<Button img={'other'}>
-						<p>Новое событие</p>
-						<CalendarPlus />
-					</Button>
+					<div className='inline-flex'>
+						<Button img={'other'}>
+							<p>Новое событие</p>
+							<CalendarPlus />
+						</Button>
+					</div>
 				</div>
 
 				<Calendar />

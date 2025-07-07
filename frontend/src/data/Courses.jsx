@@ -11,15 +11,6 @@ export const courses = [
 	},
 	{
 		img_path:
-			'https://i.pinimg.com/736x/66/f7/22/66f72263bb2ebe4cf2436a49bf76e7af.jpg',
-		title: 'Введение в HTML',
-		description:
-			'Основы верстки сайтов: теги, структура документа и первая страница.',
-		tag: 'Начинающий',
-		procent: 20,
-	},
-	{
-		img_path:
 			'https://i.pinimg.com/736x/9b/0c/7c/9b0c7cc521987e83e60b49791828362b.jpg',
 		title: 'Основы CSS',
 		description: 'Как оформлять HTML-страницы: стили, шрифты, цвета и отступы.',
