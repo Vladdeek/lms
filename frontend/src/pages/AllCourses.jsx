@@ -26,10 +26,12 @@ const AllCourses = () => {
 				<div className='flex flex-col gap-5'>
 					<div className='inline-flex gap-3'>
 						<Link size={'text-xs'} text={'Dashboard'} />
-						<p>-</p>
+						<p className='text-[var(--secondary-text)]'>-</p>
 						<Link size={'text-xs'} text={'Courses'} />
 					</div>
-					<p className='text-4xl font-bold mb-4'>МелГУ СУО 1.2</p>
+					<p className='text-4xl font-bold mb-4 text-[var(--primary-text)]'>
+						МелГУ СУО 1.2
+					</p>
 					<div className='inline-flex items-center gap-6'>
 						<Option
 							options={chapters}

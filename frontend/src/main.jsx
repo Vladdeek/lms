@@ -13,7 +13,6 @@ import DashboardLayout from './pages/layout/DashboardLayout'
 import AllCourses from './pages/AllCourses'
 import Courses from './pages/Courses'
 import CalendarPage from './pages/CalendarPage'
-import { ThemeProvider } from './api/ThemeContext'
 
 function MainApp() {
 	const navigate = useNavigate()
@@ -42,9 +41,7 @@ function MainApp() {
 }
 
 createRoot(document.getElementById('root')).render(
-	<ThemeProvider>
-		<Router>
-			<MainApp />
-		</Router>
-	</ThemeProvider>
+	<Router>
+		<MainApp />
+	</Router>
 )

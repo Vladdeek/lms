@@ -30,10 +30,12 @@ const CalendarPage = () => {
 			<div className='flex flex-col gap-5'>
 				<div className='inline-flex gap-3'>
 					<Link text={'Dashboard'} />
-					<p>-</p>
+					<p className='text-[var(--secondary-text)]'>-</p>
 					<Link text={'Calendar'} />
 				</div>
-				<p className='text-5xl font-bold mb-4'>Календарь</p>
+				<p className='text-5xl font-bold mb-4 text-[var(--primary-text)]'>
+					Календарь
+				</p>
 				<div className='flex justify-between'>
 					<div className='inline-flex items-center gap-6'>
 						<OptionAlt

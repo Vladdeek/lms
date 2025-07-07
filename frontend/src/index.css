@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 
+@import './themes.css';
+
 body {
+	background-color: var(--bg);
 	font-family: 'Rubik', sans-serif;
 	font-optical-sizing: auto;
 	font-style: normal;

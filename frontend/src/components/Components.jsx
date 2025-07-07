@@ -25,7 +25,7 @@ import {
 	FolderOpen,
 	ChevronsDown,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 const Input = ({ children, placeholder }) => {
@@ -81,17 +81,17 @@ const Link = ({ text, to, size }) => {
 			<button
 				className={`${
 					!size ? 'text-sm' : size
-				} font-medium text-stone-600 relative group mb-3 cursor-pointer whitespace-nowrap`}
+				} font-medium text-[var(--secondary-text)] relative group mb-3 cursor-pointer whitespace-nowrap`}
 			>
-				<span className='relative inline-block hover:text-[#820000]'>
+				<span className='relative inline-block hover:text-[var(--color1)]'>
 					{text}
 					<span
-						className='absolute left-0 bottom-[-0.25rem] h-0.5 bg-[#820000] rounded 
+						className='absolute left-0 bottom-[-0.25rem] h-0.5 bg-[var(--color1)] rounded 
 					 transition-all duration-400 ease-in-out
 					 w-0 group-hover:w-full'
 					></span>
 					<span
-						className='absolute left-0 bottom-[-0.25rem] h-0.5 bg-[#820000] rounded 
+						className='absolute left-0 bottom-[-0.25rem] h-0.5 bg-[var(--color1)] rounded 
 					 transition-all duration-400 ease-in-out
 					 w-full scale-x-100 origin-right
 					 opacity-0 group-hover:opacity-100 group-hover:scale-x-0'
@@ -107,23 +107,27 @@ const Dropdown = ({ children, ChapterName, isOpen, onToggle }) => {
 		<div className='flex flex-col relative '>
 			<div
 				className={`${
-					isOpen ? 'bg-[#82000010] ' : 'hover:bg-[#82000010] '
-				} flex text-black hover:text-[#820000] justify-center items-center px-3 h-12 rounded-sm gap-1 transition-all cursor-pointer`}
+					isOpen ? 'bg-[var(--secondary)]' : 'hover:bg-[var(--secondary)]'
+				} flex text-[var(--primary-text)] hover:text-[var(--primary)] justify-center items-center px-3 h-12 rounded-sm gap-1 transition-all cursor-pointer`}
 				onClick={onToggle}
 			>
-				<p className={`${isOpen && 'text-[#820000]'} font-medium text-sm`}>
+				<p
+					className={`${
+						isOpen ? 'text-[var(--primary)]' : ''
+					} font-medium text-sm`}
+				>
 					{ChapterName}
 				</p>
 				<ChevronDown
 					className={`${
-						isOpen ? 'text-[#820000] -rotate-180' : 'hover:text-[#820000]'
+						isOpen
+							? 'text-[var(--primary)] -rotate-180'
+							: 'hover:text-[var(--primary)]'
 					} transition-all`}
 				/>
 			</div>
 			{isOpen && (
-				<div
-					className={`bg-white flex flex-col absolute top-full left-0 z-50 shadow-md p-1 rounded-md`}
-				>
+				<div className='bg-[var(--bg-sidebar)] flex flex-col absolute top-full left-0 z-50 shadow-md p-1 rounded-md'>
 					{children}
 				</div>
 			)}
@@ -135,9 +139,9 @@ const Accordion = ({ children, ChapterName, to }) => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	return (
-		<div className='flex flex-col border-1 border-stone-200 rounded-xl overflow-hidden'>
+		<div className='flex flex-col border-1 border-[var(--gray)]  rounded-xl overflow-hidden'>
 			<div
-				className='flex text-black hover:text-[#820000] p-4 transition-all cursor-pointer'
+				className='flex text-[var(--primary-text)] hover:text-[var(--primary)] p-2 transition-all cursor-pointer'
 				onClick={() => setIsOpen(!isOpen)}
 			>
 				<div className='flex w-full justify-between items-center group'>
@@ -145,21 +149,25 @@ const Accordion = ({ children, ChapterName, to }) => {
 						<ChevronRight
 							className={`${
 								isOpen
-									? 'text-[#820000] -rotate-90' // Поворот на 90° при открытии
+									? 'text-[var(--primary)] -rotate-90' // Поворот на 90° при открытии
 									: 'group-hover:rotate-90' // Плавный поворот при наведении
 							} transition-transform duration-200`}
 						/>
-						<p className={`${isOpen && 'text-[#820000]'} font-normal text-xl`}>
+						<p
+							className={`${
+								isOpen && 'text-[var(--primary)]'
+							} font-normal text-xl`}
+						>
 							{ChapterName}
 						</p>
 					</div>
 					<div className='flex gap-3'>
-						<div className='flex text-stone-500 items-center bg-stone-100 rounded-md p-3 px-4 gap-2'>
+						<div className='flex text-bg-[var(--secondary-text)] items-center bg-[var(--gray)] rounded-md p-3 px-4 gap-2'>
 							<BookOpen size={22} />
 							<p className='font-medium text-md'>4</p>
 						</div>
 						<NavLink
-							className='flex items-center bg-[#82000010] text-[#820000] hover:bg-[#82000025] rounded-md p-2 px-4 font-medium transition-all'
+							className='flex items-center bg-[var(--secondary)] text-[var(--primary)] hover:scale-102 rounded-md p-2 px-4 font-medium transition-all'
 							to={to}
 						>
 							<p>Показать все курсы</p>
@@ -174,7 +182,7 @@ const Accordion = ({ children, ChapterName, to }) => {
 					isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
 				} transition-all duration-300 overflow-hidden`}
 			>
-				<div className='grid grid-cols-4 p-4 border-t-1 gap-5 border-stone-200'>
+				<div className='grid grid-cols-4 p-4 border-t-1 gap-5 border-[var(--gray)]'>
 					{children}
 				</div>
 			</div>
@@ -184,7 +192,7 @@ const Accordion = ({ children, ChapterName, to }) => {
 const CoursesBtn = ({ ChapterName, to }) => {
 	return (
 		<NavLink to={to}>
-			<div className='flex text-black hover:text-[#820000] hover:bg-[#82000010] hover:border-[#82000025] border-1 border-stone-200 transition-all cursor-pointer rounded-xl h-20 p-4 overflow-hidden'>
+			<div className='flex text-[var(--primary-text)] hover:text-[var(--primary)] hover:bg-[var(--secondary)] hover:border-[var(--secondary)] border-1 border-[var(--gray)] transition-all cursor-pointer rounded-xl h-16 p-4 overflow-hidden'>
 				<div className='flex w-full justify-start gap-4 items-center'>
 					<FolderOpen />
 					<p className={`font-normal text-xl`}>{ChapterName}</p>
@@ -205,33 +213,35 @@ const Option = ({ options, selectedValue, onSelect }) => {
 			<div
 				className={`flex items-center gap-3 justify-between p-4 border rounded-lg cursor-pointer transition-colors ${
 					isOpen
-						? 'border-[#820000] ring-2 ring-[#82000020]'
-						: 'border-gray-200 hover:border-gray-300'
+						? 'border-[var(--white)] ring-3 ring-[var(--color1)]'
+						: 'border-[var(--gray)] hover:border-[var(--secondary-text)]'
 				}`}
 				onClick={() => setIsOpen(!isOpen)}
 			>
 				<span
 					className={`text-lg ${
-						selectedOption ? 'text-gray-900' : 'text-gray-500'
+						selectedOption
+							? 'text-[var(--primary-text)]'
+							: 'text-[var(--secondary-text)]'
 					}`}
 				>
 					{selectedOption?.label || 'Выберите вариант'}
 				</span>
 				<ChevronsUpDown
 					className={`w-5 h-5 transition-transform ${
-						isOpen ? 'text-[#820000]' : 'text-gray-400'
+						isOpen ? 'text-[var(--primary)]' : 'text-gray-400'
 					}`}
 				/>
 			</div>
 			{isOpen && (
-				<div className='absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden'>
+				<div className='absolute z-10 w-full mt-1 bg-[var(--gray)] text-[var(--primary-text)] border border-[var(--gray)] rounded-lg shadow-lg overflow-hidden'>
 					{options.map(option => (
 						<div
 							key={option.value}
 							className={`p-3 cursor-pointer transition-colors ${
 								option.value === selectedValue
-									? 'bg-[#82000010] text-[#820000]'
-									: 'hover:bg-[#82000010] hover:text-[#820000]'
+									? 'bg-[var(--secondary)] text-[var(--primary)]'
+									: 'hover:bg-[var(--secondary)] hover:text-[var(--primary)]'
 							}`}
 							onClick={() => {
 								onSelect(option.value)
@@ -256,8 +266,8 @@ const OptionAlt = ({ options, selectedValue, onSelect }) => {
 	return (
 		<div className='relative inline-block w-75'>
 			<div
-				className={`flex items-center gap-3 justify-between p-4 text-stone-900 font-medium bg-stone-100 rounded-lg cursor-pointer transition-colors ${
-					isOpen ? 'bg-stone-200' : ' hover:bg-stone-200 '
+				className={`flex items-center gap-3 justify-between p-4 text-[var(--primary-text)] font-medium bg-[var(--gray)] rounded-lg cursor-pointer transition-colors ${
+					isOpen ? 'bg-[var(--bg)]' : ' hover:bg-[var(--bg)] '
 				}`}
 				onClick={() => setIsOpen(!isOpen)}
 			>
@@ -266,19 +276,19 @@ const OptionAlt = ({ options, selectedValue, onSelect }) => {
 				</span>
 				<ChevronDown
 					className={`w-5 h-5 transition-transform  ${
-						isOpen && 'text-stone-800'
+						isOpen && 'text-[var(--primary-text)]'
 					}`}
 				/>
 			</div>
 			{isOpen && (
-				<div className='absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden'>
+				<div className='absolute z-10 w-full text-[var(--primary-text)] mt-1 bg-[var(--gray)] border border-[var(--gray)] rounded-lg shadow-lg overflow-hidden'>
 					{options.map(option => (
 						<div
 							key={option.value}
 							className={`p-3 cursor-pointer transition-colors ${
 								option.value === selectedValue
-									? 'bg-stone-100 text-stone-700'
-									: 'hover:bg-stone-100 hover:text-stone-700'
+									? 'bg-[var(--secondary)] text-[var(--primary)]'
+									: 'hover:bg-[var(--secondary)] hover:text-[var(--primary)]'
 							}`}
 							onClick={() => {
 								onSelect(option.value)
@@ -297,7 +307,7 @@ const OptionAlt = ({ options, selectedValue, onSelect }) => {
 const InDropdown = ({ content, to }) => {
 	return (
 		<NavLink to={to}>
-			<p className='hover:bg-[#82000010] hover:text-[#820000] rounded-lg text-xs font-medium select-none transition-all px-4 py-2'>
+			<p className='hover:bg-[var(--secondary)] hover:text-[var(--primary)] text-[var(--primary-text)] rounded-lg text-xs font-medium select-none transition-all px-4 py-2'>
 				{content}
 			</p>
 		</NavLink>
@@ -307,7 +317,7 @@ const HeaderBtn = ({ ChapterName }) => {
 	return (
 		<div className='flex flex-col relative'>
 			<div
-				className={`hover:bg-[#82000010] flex text-black hover:text-[#820000] justify-center items-center px-3 h-12 rounded-md gap-1 transition-all cursor-pointer`}
+				className={`hover:bg-[var(--secondary)] flex text-[var(--primary-text)] hover:text-[var(--primary)] justify-center items-center px-3 h-12 rounded-sm gap-1 transition-all cursor-pointer`}
 			>
 				<p className={` font-medium text-sm`}>{ChapterName}</p>
 			</div>
@@ -322,22 +332,26 @@ const ChangeLang = ({ children, ChapterName }) => {
 		<div className='flex flex-col relative'>
 			<div
 				className={`${
-					isOpen ? 'bg-[#82000010] ' : 'bg-stone-100 hover:bg-[#82000010] '
-				} flex text-black hover:text-[#820000] h-12 justify-center items-center px-3 rounded-md gap-1 transition-all cursor-pointer`}
+					isOpen
+						? 'bg-[var(--secondary)] '
+						: 'bg-[var(--bg-sidebar)] hover:bg-[var(--secondary)] '
+				} flex text-[var(--primary)] hover:text-[var(--primary)] h-12 justify-center items-center px-3 rounded-md gap-1 transition-all cursor-pointer`}
 				onClick={() => setIsOpen(!isOpen)}
 			>
 				<Flag
 					className={`${
-						isOpen ? 'text-[#820000]' : 'hover:text-[#820000]'
+						isOpen ? 'text-[var(--primary)]' : 'hover:text-[var(--primary)]'
 					} p-1`}
 				/>
-				<p className={`${isOpen && 'text-[#820000]'} font-medium text-sm`}>
+				<p
+					className={`${isOpen && 'text-[var(--primary)]'} font-medium text-sm`}
+				>
 					{ChapterName}
 				</p>
 			</div>
 			{isOpen && (
 				<div
-					className={`bg-white flex flex-col absolute top-full left-0 z-50 shadow-md p-1 rounded-xl`}
+					className={`bg-[var(--bg-sidebar)] flex flex-col absolute top-full left-0 z-50 shadow-md p-1 rounded-xl`}
 				>
 					{children}
 				</div>
@@ -352,14 +366,14 @@ const Search = ({ searchIsOpen, onClick }) => {
 			<div
 				className={`${
 					searchIsOpen &&
-					'flex items-center shadow-md shadow-stone-200 border-1 border-stone-100 focus-within:outline-3 outline-[#82000099] rounded-md h-12 pr-2'
+					'flex items-center border-1 border-[var(--gray)] text-[var(--secondary-text)] bg-[var(--bg-sidebar)] focus-within:outline-3 transition-all outline-[#82000099] rounded-md h-12 pr-2'
 				}`}
 			>
 				<SearchIcon
 					className={`${
 						!searchIsOpen &&
-						'hover:bg-[#82000010] hover:text-[#820000] cursor-pointer'
-					} h-12 w-12 inline-flex justify-center items-center rounded-md p-3`}
+						'hover:bg-[var(--secondary)] hover:text-[var(--primary)] cursor-pointer text-[var(--secondary-text)]'
+					} h-12 w-12 inline-flex justify-center items-center rounded-md p-3 transition-all `}
 					size={24}
 					onClick={!searchIsOpen && onClick}
 				/>
@@ -371,12 +385,12 @@ const Search = ({ searchIsOpen, onClick }) => {
 							className='outline-0 text-md h-full w-[175px]'
 						/>
 						<X
-							className='hover:bg-[#82000010] hover:text-[#820000] rounded-full  p-1 transition-all'
+							className='hover:bg-[var(--secondary)] hover:text-[var(--primary)] rounded-full  p-1 transition-all'
 							size={32}
 							onClick={searchIsOpen && onClick}
 						/>
 						<ArrowRight
-							className='hover:bg-[#00008210] hover:text-[#000082] rounded-full p-1 transition-all'
+							className='hover:bg-[var(--secondary-blue)] hover:text-[var(--primary-blue)] rounded-full p-1 transition-all'
 							size={32}
 						/>
 					</>
@@ -389,7 +403,7 @@ const Search = ({ searchIsOpen, onClick }) => {
 const SearchDefault = ({}) => {
 	return (
 		<div
-			className={`shadow-md shadow-stone-200 border-1 border-stone-100 focus-within:outline-3 outline-[#82000099] rounded-lg pr-2 inline-flex items-center`}
+			className={` border-1 border-[var(--gray)] bg-[var(--bg-sidebar)] text-[var(--secondary-text)] focus-within:outline-3 outline-[#82000099] rounded-lg pr-2 inline-flex items-center transition-all`}
 		>
 			<SearchIcon
 				className={`h-15 w-15 justify-center items-center rounded-lg p-4`}
@@ -403,7 +417,7 @@ const SearchDefault = ({}) => {
 			/>
 
 			<ArrowRight
-				className='hover:bg-[#00008210] hover:text-[#000082] rounded-full p-3'
+				className='hover:bg-[var(--secondary)]  hover:text-[var(--primary)] rounded-full p-3 transition-all'
 				size={48}
 			/>
 		</div>
@@ -412,26 +426,38 @@ const SearchDefault = ({}) => {
 
 const ToggleTheme = () => {
 	const [ThemeStatus, setThemeStatus] = useState(false)
+
+	useEffect(() => {
+		// Устанавливаем начальную тему при загрузке
+		const currentTheme =
+			document.documentElement.getAttribute('data-theme') || 'light'
+		setThemeStatus(currentTheme === 'dark')
+	}, [])
+
+	const toggleTheme = () => {
+		const html = document.documentElement
+		const current = html.getAttribute('data-theme')
+		const newTheme = current === 'light' ? 'dark' : 'light'
+
+		html.setAttribute('data-theme', newTheme)
+		setThemeStatus(newTheme === 'dark')
+	}
+
 	return (
-		<>
-			<button
-				className={`${
-					!ThemeStatus
-						? 'bg-orange-100 text-stone-700 hover:bg-stone-950 hover:text-white'
-						: ''
-				}  h-12 w-12 rounded-lg flex justify-center items-center transition-all  relative group`}
-			>
-				{!ThemeStatus ? (
-					<>
-						<Moon size={42} className='p-2' />
-					</>
-				) : (
-					<>
-						<Sun size={42} className='p-2' />
-					</>
-				)}
-			</button>
-		</>
+		<button
+			onClick={toggleTheme}
+			className={`${
+				!ThemeStatus
+					? 'bg-orange-100 text-stone-700 hover:bg-stone-950 hover:text-white'
+					: 'bg-stone-800 text-white hover:bg-orange-200 hover:text-black'
+			} h-12 w-12 rounded-lg flex justify-center items-center transition-all relative group`}
+		>
+			{!ThemeStatus ? (
+				<Moon size={42} className='p-2' />
+			) : (
+				<Sun size={42} className='p-2' />
+			)}
+		</button>
 	)
 }
 
@@ -441,11 +467,11 @@ const Profile = ({ children, img_path }) => {
 	return (
 		<div className='flex flex-col relative'>
 			<div
-				className={` flex text-black justify-center items-center rounded-xl gap-1 transition-all cursor-pointer`}
+				className={` flex text-[var(--primary-text)] justify-center items-center rounded-xl gap-1 transition-all cursor-pointer`}
 				onClick={() => setIsOpen(!isOpen)}
 			>
 				<img
-					className='rounded-lg border-1 border-stone-200 select-none h-12'
+					className='rounded-lg border-1 border-[var(--bg)] select-none h-12'
 					src={img_path}
 					alt=''
 				/>
@@ -453,7 +479,7 @@ const Profile = ({ children, img_path }) => {
 			</div>
 			{isOpen && (
 				<div
-					className={`bg-white flex flex-col absolute top-20 -left-55 z-50 shadow-md rounded-xl`}
+					className={`bg-[var(--gray)] flex flex-col absolute top-20 -left-55 z-50 shadow-md rounded-xl`}
 				>
 					{children}
 				</div>
@@ -466,7 +492,7 @@ const Button = ({ img, namebtn, children, scale }) => {
 	return (
 		<>
 			<button
-				className={`bg-[#820000] hover:bg-[#82000025] hover:text-[#820000] active:scale-97 transition-all inline-flex gap-4 text-white font-medium p-4 px-10 text-lg justify-between items-center rounded-md ${
+				className={`bg-[var(--color1)] hover:brightness-80 active:scale-97 transition-all inline-flex gap-4 text-white font-medium p-4 px-10 text-lg justify-between items-center rounded-md ${
 					!scale ? 'w-full justify-center' : scale
 				}`}
 			>
@@ -497,32 +523,34 @@ const CourseCard = ({
 	isProgressbar,
 }) => {
 	return (
-		<div className='border-1 border-stone-200 h-134 rounded-lg flex flex-col overflow-hidden w-full'>
+		<div className='border-1 border-[var(--gray)] h-134 rounded-lg flex flex-col overflow-hidden w-full'>
 			<img className='w-full h-4/10 object-cover' src={img_path} alt='' />
 			<div className='flex flex-col h-5/10 gap-3 p-5'>
 				<a
 					href='#'
-					className='font-bold text-md hover:text-[#820000] transition-all'
+					className='font-bold text-md text-[var(--primary-text)] hover:text-[var(--color1)] transition-all'
 				>
 					{title}
 				</a>
-				<p className='text-sm font-light text-stone-500 mb-4'>{description}</p>
-				<p className='bg-stone-100 w-fit text-stone-500 rounded-lg px-3 py-1 font-medium text-lg'>
+				<p className='text-sm font-light text-[var(--secondary-text)] mb-4'>
+					{description}
+				</p>
+				<p className='bg-[var(--bg-sidebar)] w-fit text-[var(--secondary-text)] rounded-lg px-3 py-1 font-medium text-lg'>
 					{tag}
 				</p>
 			</div>
 			{!isProgressbar ? (
 				<>
-					<div className='flex h-1/10 items-center gap-4 border-t-1 border-stone-200 p-5 pb-7'>
-						<TrendingUp size={32} />
-						<div className='flex flex-col w-full'>
+					<div className='flex h-1/10 items-center gap-4 border-t-1 border-[var(--gray)] p-5 pb-7'>
+						<TrendingUp className='text-[var(--primary-text)]' size={32} />
+						<div className='flex flex-col w-full text-[var(--primary-text)]'>
 							<p>
-								<span className='font-semibold text-xs'>{procent}%</span>{' '}
+								<span className='font-semibold text-xs '>{procent}%</span>{' '}
 								Выполнено
 							</p>
-							<div className='w-full h-2 bg-stone-200 rounded-full overflow-hidden'>
+							<div className='w-full h-2 bg-[var(--gray)] rounded-full overflow-hidden'>
 								<div
-									className='h-2 rounded-full bg-gradient-to-r from-[#820000] to-[#c10f1a]'
+									className='h-2 rounded-full bg-gradient-to-r from-[var(--color1)] to-[var(--color2)]'
 									style={{ width: `${procent}%` }}
 								></div>
 							</div>

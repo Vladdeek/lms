@@ -35,12 +35,14 @@ const Courses = ({ level }) => {
 				<div className='flex flex-col gap-5'>
 					<div className='inline-flex gap-3'>
 						<Link text={'Dashboard'} />
-						<p>-</p>
+						<p className='text-[var(--secondary-text)]'>-</p>
 						<Link text={'Courses'} to={'../courses'} />
-						<p>-</p>
+						<p className='text-[var(--secondary-text)]'>-</p>
 						<Link text={translatedLevel} />
 					</div>
-					<p className='text-5xl font-bold mb-4'>{translatedLevel}</p>
+					<p className='text-5xl font-bold mb-4 text-[var(--primary-text)]'>
+						{translatedLevel}
+					</p>
 					<div className='inline-flex items-center gap-6'>
 						<Option
 							options={chapters}
@@ -49,7 +51,7 @@ const Courses = ({ level }) => {
 						/>
 						<SearchDefault />
 					</div>
-					<p className='my-3 text-2xl font-normal text-stone-700'>
+					<p className='my-3 text-2xl font-normal text-[var(--secondary-text)]'>
 						Цель lorem ipsum - создать текстовый блок естественного вида
 						(предложение, абзац, страницу и т.д.), который не отвлекает от
 						макета. Практика, которая не лишена противоречий, - заполнение

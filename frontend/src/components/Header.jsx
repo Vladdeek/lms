@@ -35,18 +35,18 @@ const Header = ({
 	}
 	return (
 		<>
-			<div className='flex px-2 pb-2 border-b-1 justify-between border-stone-200'>
+			<div className='flex px-2 pb-2 border-b-1 justify-between border-[var(--border)]'>
 				<div className='flex gap-1'>
 					<div
 						onClick={toggleSidebar}
 						className={`${
-							sidebarOpen ? 'bg-[#82000010]' : 'bg-[#00000010]'
+							sidebarOpen ? 'bg-[var(--secondary)]' : 'bg-[var(--bg-sidebar)]'
 						} rounded-xl h-12 w-12 flex justify-center items-center p-2 cursor-pointer relative group`}
 					>
 						{sidebarOpen ? (
-							<PanelLeftClose color='#820000' size={28} />
+							<PanelLeftClose className='text-[var(--primary)]' size={28} />
 						) : (
-							<PanelLeftOpen color='#181818' size={28} />
+							<PanelLeftOpen className='text-[var(--primary-text)]' size={28} />
 						)}
 						<span className='relative'>
 							<span className='absolute top-10 mt-2 px-2 py-1 bg-stone-800 text-white text-md font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap'>
@@ -55,7 +55,7 @@ const Header = ({
 						</span>
 					</div>
 					<div className='flex justify-center items-center h-12 mx-5 hover:opacity-75 transition-all cursor-pointer'>
-						<GraduationCap color='#820000' size={32} />
+						<GraduationCap className='text-[var(--logo)]' size={32} />
 					</div>
 					<ChangeLang ChapterName={'Рус'}>
 						<InDropdown content={'Русский'} />
@@ -67,7 +67,7 @@ const Header = ({
 					>
 						<InDropdown content={'Все курсы'} to={'courses'} />
 						<InDropdown content={'Поиск курсов'} />
-						<div className='border-t-1 flex flex-col gap-1 p-1 border-stone-200'>
+						<div className='border-t-1 flex flex-col gap-1 mt-1 p-1 border-[var(--border)]'>
 							<InDropdown content={'Темы документации'} />
 						</div>
 					</Dropdown>
@@ -109,10 +109,12 @@ const Header = ({
 					{!searchIsOpen && (
 						<>
 							<div className='flex justify-center items-center h-full mx-5 hover:opacity-75 transition-all cursor-pointer'>
-								<GraduationCap color='#820000' size={24} />
+								<GraduationCap className='text-[var(--logo)]' size={24} />
 							</div>
-							<div className='flex flex-col pr-4 border-r-1 border-stone-200'>
-								<p className='font-medium text-xs'>МелГУ СУО 1.2</p>
+							<div className='flex flex-col pr-4 border-r-1 border-[var(--border)]'>
+								<p className='font-medium text-xs text-[var(--primary-text)]'>
+									МелГУ СУО 1.2
+								</p>
 								<Link
 									size={'text-xs'}
 									text={'Получите эту тему сегодня!'}
@@ -127,7 +129,7 @@ const Header = ({
 						searchIsOpen={searchIsOpen}
 					/>
 					<ToggleTheme />
-					<button className='hover:bg-[#82000010] hover:text-[#820000] h-12 w-12 rounded-lg flex justify-center items-center transition-all'>
+					<button className='hover:bg-[var(--secondary)] hover:text-[var(--primary)] text-[var(--secondary-text)] h-12 w-12 rounded-lg flex justify-center items-center transition-all'>
 						<MessagesSquare size={42} className='p-2' />
 					</button>
 					<Profile img_path={img_path}>

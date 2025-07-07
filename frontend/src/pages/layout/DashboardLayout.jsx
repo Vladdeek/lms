@@ -60,10 +60,12 @@ export default function DashboardLayout() {
 					img_path={getAvatar()}
 				>
 					<div className='flex w-full my-10 justify-center items-center gap-3'>
-						<GraduationCap color='#820000' size={48} />
-						<h1 className='font-black text-black text-xl'>МелГУ СУО</h1>
+						<GraduationCap className='text-[var(--logo)]' size={48} />
+						<h1 className='font-black text-[var(--primary-text)] text-xl'>
+							МелГУ СУО
+						</h1>
 					</div>
-					<div className='bg-white p-2 rounded-xl gap-1 w-8/9 mx-auto'>
+					<div className='bg-[var(--bg)] p-2 rounded-xl gap-1 w-8/9 mx-auto'>
 						<SBLink to={'home'} chapter_name={'Главная'} icon={House} />
 						<SBLink
 							to={'dashboard'}

@@ -9,7 +9,7 @@ export default function Sidebar({ username, role, img_path, children }) {
 			className='
         fixed top-0 left-0 z-40 w-65 h-screen
         transition-transform -translate-x-full sm:translate-x-0
-        bg-stone-100 text-white flex flex-col'
+        bg-[var(--bg-sidebar)] text-white flex flex-col'
 			aria-label='Sidebar'
 		>
 			{/* ——— меню ——— */}
@@ -28,12 +28,12 @@ export const SBLink = ({ to, chapter_name, icon: Icon }) => (
 				[
 					'flex items-center rounded-lg gap-3 cursor-pointer transition h-10 p-4',
 					isActive
-						? 'bg-[#82000010] text-[#820000]'
-						: 'hover:bg-[#82000010] hover:text-[#820000] text-black',
+						? 'bg-[var(--secondary)] text-[var(--primary)]'
+						: 'hover:bg-[var(--secondary)] hover:text-[var(--primary)] text-[var(--primary-text)]',
 				].join(' ')
 			}
 		>
-			<Icon className='text-current h-5 opacity-75 group-hover:text-[#820000]' />
+			<Icon className='text-current h-5 opacity-75 group-hover:text-[var(--primary)]' />
 			<span className='flex-1 pb-[2px] whitespace-nowrap font-medium text-sm pt-1'>
 				{chapter_name}
 			</span>
