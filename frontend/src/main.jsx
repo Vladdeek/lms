@@ -13,6 +13,8 @@ import DashboardLayout from './pages/layout/DashboardLayout'
 import AllCourses from './pages/AllCourses'
 import Courses from './pages/Courses'
 import CalendarPage from './pages/CalendarPage'
+import Dashboard from './pages/Dashboard'
+import PrivateFiles from './pages/PrivateFiles'
 
 function MainApp() {
 	const navigate = useNavigate()
@@ -34,6 +36,8 @@ function MainApp() {
 					/>
 					<Route path='courses/expert' element={<Courses level={'expert'} />} />
 					<Route path='calendar' element={<CalendarPage />} />
+					<Route path='dashboard' element={<Dashboard />} />
+					<Route path='private-files' element={<PrivateFiles />} />
 				</Route>
 			</Routes>
 		</Suspense>

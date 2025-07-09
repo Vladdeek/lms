@@ -9,7 +9,9 @@ import {
 	Flag,
 	SearchIcon,
 	Cross,
+	Check,
 	X,
+	Settings,
 	ArrowRight,
 	Moon,
 	Sun,
@@ -24,6 +26,11 @@ import {
 	Folder,
 	FolderOpen,
 	ChevronsDown,
+	Funnel,
+	Grid2x2,
+	AlignJustify,
+	FolderClosed,
+	UploadCloud,
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
@@ -304,6 +311,53 @@ const OptionAlt = ({ options, selectedValue, onSelect }) => {
 	)
 }
 
+const FilterOption = ({ options, selectedValue, onSelect, children }) => {
+	const [isOpen, setIsOpen] = useState(false)
+
+	const selectedOption = options.find(opt => opt.value === selectedValue)
+
+	return (
+		<div className='relative inline-block'>
+			<div
+				className={`inline-flex items-center gap-3 py-2 px-3 text-[var(--primary-text)] font-normal bg-[var(--gray)] border-1 border-[var(--gray)] rounded-lg cursor-pointer transition-colors ${
+					isOpen ? 'bg-[var(--bg)]' : ' hover:bg-[var(--bg)] '
+				}`}
+				onClick={() => setIsOpen(!isOpen)}
+			>
+				{children}
+				<span className={`text-md `}>
+					{selectedOption?.label || 'Выберите вариант'}
+				</span>
+				<ChevronDown
+					className={`w-5 h-5 transition-transform  ${
+						isOpen && 'text-[var(--primary-text)]'
+					}`}
+				/>
+			</div>
+			{isOpen && (
+				<div className='absolute z-10 w-full text-[var(--primary-text)] mt-1 bg-[var(--gray)] border border-[var(--gray)] rounded-lg shadow-lg overflow-hidden'>
+					{options.map(option => (
+						<div
+							key={option.value}
+							className={`p-3 cursor-pointer transition-colors ${
+								option.value === selectedValue
+									? 'bg-[var(--secondary)] text-[var(--primary)]'
+									: 'hover:bg-[var(--secondary)] hover:text-[var(--primary)]'
+							}`}
+							onClick={() => {
+								onSelect(option.value)
+								setIsOpen(false)
+							}}
+						>
+							{option.label}
+						</div>
+					))}
+				</div>
+			)}
+		</div>
+	)
+}
+
 const InDropdown = ({ content, to }) => {
 	return (
 		<NavLink to={to}>
@@ -423,6 +477,24 @@ const SearchDefault = ({}) => {
 		</div>
 	)
 }
+const SearchFull = ({}) => {
+	return (
+		<div
+			className={` border-1 border-[var(--gray)] bg-[var(--bg-sidebar)] text-[var(--secondary-text)] focus-within:outline-3 outline-[#82000099] rounded-lg pr-2 flex items-center transition-all`}
+		>
+			<SearchIcon
+				className={`h-12 w-12 justify-center items-center rounded-lg p-3`}
+				size={28}
+			/>
+
+			<input
+				type='text'
+				placeholder='Поиск'
+				className='outline-0 text-xl bg-transparent w-full'
+			/>
+		</div>
+	)
+}
 
 const ToggleTheme = () => {
 	const [ThemeStatus, setThemeStatus] = useState(false)
@@ -513,6 +585,17 @@ const Button = ({ img, namebtn, children, scale }) => {
 		</>
 	)
 }
+const GrayButton = ({ namebtn }) => {
+	return (
+		<>
+			<button
+				className={`bg-[var(--gray)] hover:brightness-80 active:scale-97 transition-all inline-flex gap-4 text-[var(--primary-text)] font-medium p-4 px-10 text-lg justify-between items-center rounded-md `}
+			>
+				{namebtn}
+			</button>
+		</>
+	)
+}
 
 const CourseCard = ({
 	title,
@@ -565,8 +648,119 @@ const CourseCard = ({
 		</div>
 	)
 }
+const AltCourseCard = ({
+	title,
+	description,
+	tag,
+	procent,
+	img_path,
+	isProgressbar,
+}) => {
+	return (
+		<div className='border-1 border-[var(--gray)] h-125 rounded-lg flex flex-col overflow-hidden w-full'>
+			<img className='w-full h-4/5 object-cover' src={img_path} alt='' />
+			<div className='flex flex-col h-5/10 gap-3 p-5'>
+				<a
+					href='#'
+					className='font-bold text-md text-[var(--primary-text)] hover:text-[var(--color1)] transition-all'
+				>
+					{title}
+				</a>
+				<p className='bg-[var(--bg-sidebar)] w-fit text-[var(--secondary-text)] rounded-lg px-3 py-1 font-medium text-lg'>
+					{tag}
+				</p>
+			</div>
+			{!isProgressbar ? (
+				<>
+					<div className='flex h-1/5 items-center gap-4 border-t-1 border-[var(--gray)] p-5 pb-7'>
+						<TrendingUp className='text-[var(--primary-text)]' size={32} />
+						<div className='flex flex-col w-full text-[var(--primary-text)]'>
+							<p>
+								<span className='font-semibold text-xs '>{procent}%</span>{' '}
+								Выполнено
+							</p>
+							<div className='w-full h-2 bg-[var(--gray)] rounded-full overflow-hidden'>
+								<div
+									className='h-2 rounded-full bg-gradient-to-r from-[var(--color1)] to-[var(--color2)]'
+									style={{ width: `${procent}%` }}
+								></div>
+							</div>
+						</div>
+					</div>
+				</>
+			) : (
+				<div className='pb-3 px-3 h-1/5 flex w-full justify-end'>
+					<Button namebtn={'Получить'} img={'right'} />
+				</div>
+			)}
+		</div>
+	)
+}
+
+const ImgBtn = ({ children }) => {
+	return (
+		<>
+			<button className='bg-[var(--gray)] rounded-md p-3 hover:bg-[var(--secondary)] text-[var(--primary-text)] hover:text-[var(--primary)] transition-all'>
+				{children}
+			</button>
+		</>
+	)
+}
+
+const iconComponents = {
+	Grid2x2,
+	AlignJustify,
+	FolderClosed,
+}
+
+const RadioBtn = ({ radios, selectedValue, onSelect }) => {
+	return (
+		<div className='rounded-md bg-[var(--gray)] inline-flex overflow-hidden'>
+			{radios.map(radio => {
+				const IconComponent = iconComponents[radio.icon]
+				return (
+					<div
+						key={radio.value}
+						className={`p-3 cursor-pointer  transition-colors flex items-center gap-2 ${
+							radio.value === selectedValue
+								? 'bg-[var(--secondary)] text-[var(--primary)]'
+								: 'hover:bg-[var(--secondary)] hover:text-[var(--primary)] text-[var(--primary-text)]'
+						}`}
+						onClick={() => onSelect(radio.value)}
+					>
+						{radio.icon && <IconComponent className='w-4 h-4' />}
+					</div>
+				)
+			})}
+		</div>
+	)
+}
+
+const FileUpload = () => {
+	return (
+		<form className='w-full mt-3'>
+			<label
+				htmlFor='file'
+				className='w-full cursor-pointer bg-[var(--gray)] p-3 ring-10 ring-[var(--gray)] rounded-xl border-2 border-dashed border-[var(--primary-text)] flex flex-col items-center justify-center'
+			>
+				<input id='file' type='file' className='hidden' />
+				<div className='flex flex-col items-center justify-center gap-2 text-center'>
+					<UploadCloud className='h-12 w-12 text-[var(--primary-text)] mb-4' />
+					<p className='text-[var(--primary-text)] text-lg'>
+						Перетащите файлы сюда
+					</p>
+					<p className='text-[var(--primary-text)]'>или</p>
+					<p className='text-[var(--primary-text)] font-medium hover:text-[var(--color1)] transition-all'>
+						Выберите файлы
+					</p>
+				</div>
+			</label>
+		</form>
+	)
+}
 
 export {
+	FileUpload,
 	Profile,
 	Input,
 	InputPassword,
@@ -585,4 +779,10 @@ export {
 	Button,
 	CoursesBtn,
 	OptionAlt,
+	SearchFull,
+	FilterOption,
+	AltCourseCard,
+	ImgBtn,
+	RadioBtn,
+	GrayButton,
 }

@@ -48,11 +48,6 @@ const Header = ({
 						) : (
 							<PanelLeftOpen className='text-[var(--primary-text)]' size={28} />
 						)}
-						<span className='relative'>
-							<span className='absolute top-10 mt-2 px-2 py-1 bg-stone-800 text-white text-md font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap'>
-								{sidebarOpen ? 'Убрать боковое меню' : 'Показать боковое меню'}
-							</span>
-						</span>
 					</div>
 					<div className='flex justify-center items-center h-12 mx-5 hover:opacity-75 transition-all cursor-pointer'>
 						<GraduationCap className='text-[var(--logo)]' size={32} />
