@@ -1,6 +1,7 @@
 import { ArrowUpWideNarrow, Funnel, Grid2x2 } from 'lucide-react'
 import {
 	AltCourseCard,
+	CommentInput,
 	CourseCard,
 	FilterOption,
 	OptionAlt,
@@ -35,9 +36,9 @@ const Dashboard = () => {
 		chapters1[0]?.value || ''
 	)
 	return (
-		<div className='px-20 py-20'>
-			<div className='w-full flex justify-between mb-3'>
-				<div className='inline-flex gap-1'>
+		<div className='p-20 max-lg:p-10 max-lg:mt-10'>
+			<div className='w-full flex max-sm:flex-col gap-1 justify-between mb-3'>
+				<div className='inline-flex'>
 					<FilterOption
 						options={chapters1}
 						selectedValue={selectedChapter1}
@@ -46,7 +47,7 @@ const Dashboard = () => {
 						<Funnel size={18} />
 					</FilterOption>
 				</div>
-				<div className='inline-flex gap-1'>
+				<div className='inline-flex max-sm:flex-col gap-1'>
 					<FilterOption
 						options={chapters2}
 						selectedValue={selectedChapter2}
@@ -63,10 +64,10 @@ const Dashboard = () => {
 					</FilterOption>
 				</div>
 			</div>
-
-			<SearchFull />
-
-			<div className='grid grid-cols-4 gap-5 mt-5'>
+			<div className='max-lg:w-fit'>
+				<SearchFull />
+			</div>
+			<div className='grid max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 grid-cols-4 gap-5 mt-5'>
 				{courses.map((course, index) => (
 					<AltCourseCard
 						key={index}
@@ -78,6 +79,7 @@ const Dashboard = () => {
 					/>
 				))}
 			</div>
+			<CommentInput />
 		</div>
 	)
 }

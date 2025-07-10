@@ -1,20 +1,29 @@
 import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, X } from 'lucide-react'
 
-export default function Sidebar({ username, role, img_path, children }) {
+export default function Sidebar({
+	username,
+	role,
+	img_path,
+	children,
+	sidebarOpen,
+	toggleSidebar,
+}) {
 	return (
 		<aside
 			id='logo-sidebar'
-			className='
-        fixed top-0 left-0 z-40 w-65 h-screen
-        transition-transform -translate-x-full sm:translate-x-0
-        bg-[var(--bg-sidebar)] text-white flex flex-col'
+			className={`
+        fixed top-0 left-0 z-50 sm:w-65 max-sm:w-screen h-screen
+        transition-transform ${
+					sidebarOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
+				}
+        bg-[var(--bg-sidebar)] text-white flex flex-col`}
 			aria-label='Sidebar'
 		>
 			{/* ——— меню ——— */}
-			<nav className='flex-1 overflow-y-auto px-3 py-4'>
-				<ul className=' font-medium flex flex-col'>{children}</ul>
+			<nav className='flex-1 overflow-y-auto px-3 py-4 max-lg:mt-10'>
+				<ul className='font-medium flex flex-col'>{children}</ul>
 			</nav>
 		</aside>
 	)

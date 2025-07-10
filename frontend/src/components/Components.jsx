@@ -115,7 +115,7 @@ const Dropdown = ({ children, ChapterName, isOpen, onToggle }) => {
 			<div
 				className={`${
 					isOpen ? 'bg-[var(--secondary)]' : 'hover:bg-[var(--secondary)]'
-				} flex text-[var(--primary-text)] hover:text-[var(--primary)] justify-center items-center px-3 h-12 rounded-sm gap-1 transition-all cursor-pointer`}
+				} flex text-[var(--primary-text)] hover:text-[var(--primary)] justify-center max-lg:justify-start items-center px-3 h-12 rounded-sm gap-1 transition-all cursor-pointer`}
 				onClick={onToggle}
 			>
 				<p
@@ -151,7 +151,7 @@ const Accordion = ({ children, ChapterName, to }) => {
 				className='flex text-[var(--primary-text)] hover:text-[var(--primary)] p-2 transition-all cursor-pointer'
 				onClick={() => setIsOpen(!isOpen)}
 			>
-				<div className='flex w-full justify-between items-center group'>
+				<div className='flex max-lg:flex-col w-full justify-between lg:items-center group'>
 					<div className='flex gap-4 items-center'>
 						<ChevronRight
 							className={`${
@@ -168,8 +168,8 @@ const Accordion = ({ children, ChapterName, to }) => {
 							{ChapterName}
 						</p>
 					</div>
-					<div className='flex gap-3'>
-						<div className='flex text-bg-[var(--secondary-text)] items-center bg-[var(--gray)] rounded-md p-3 px-4 gap-2'>
+					<div className='flex gap-3 ml-10'>
+						<div className='flex text-bg-[var(--secondary-text)] items-center bg-[var(--gray)] rounded-md lg:p-3 px-4 gap-2'>
 							<BookOpen size={22} />
 							<p className='font-medium text-md'>4</p>
 						</div>
@@ -186,10 +186,10 @@ const Accordion = ({ children, ChapterName, to }) => {
 			{/* Контент с анимацией */}
 			<div
 				className={`${
-					isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+					isOpen ? 'h-auto opacity-100' : 'max-h-0 opacity-0'
 				} transition-all duration-300 overflow-hidden`}
 			>
-				<div className='grid grid-cols-4 p-4 border-t-1 gap-5 border-[var(--gray)]'>
+				<div className='grid max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 grid-cols-4 p-4 border-t-1 gap-5 border-[var(--gray)]'>
 					{children}
 				</div>
 			</div>
@@ -319,7 +319,7 @@ const FilterOption = ({ options, selectedValue, onSelect, children }) => {
 	return (
 		<div className='relative inline-block'>
 			<div
-				className={`inline-flex items-center gap-3 py-2 px-3 text-[var(--primary-text)] font-normal bg-[var(--gray)] border-1 border-[var(--gray)] rounded-lg cursor-pointer transition-colors ${
+				className={`inline-flex  items-center gap-3 py-2 px-3 text-[var(--primary-text)] font-normal bg-[var(--gray)] border-1 border-[var(--gray)] rounded-lg cursor-pointer transition-colors ${
 					isOpen ? 'bg-[var(--bg)]' : ' hover:bg-[var(--bg)] '
 				}`}
 				onClick={() => setIsOpen(!isOpen)}
@@ -371,7 +371,7 @@ const HeaderBtn = ({ ChapterName }) => {
 	return (
 		<div className='flex flex-col relative'>
 			<div
-				className={`hover:bg-[var(--secondary)] flex text-[var(--primary-text)] hover:text-[var(--primary)] justify-center items-center px-3 h-12 rounded-sm gap-1 transition-all cursor-pointer`}
+				className={`hover:bg-[var(--secondary)] flex text-[var(--primary-text)] hover:text-[var(--primary)] justify-center max-lg:justify-start items-center px-3 h-12 rounded-sm gap-1 transition-all cursor-pointer`}
 			>
 				<p className={` font-medium text-sm`}>{ChapterName}</p>
 			</div>
@@ -759,7 +759,28 @@ const FileUpload = () => {
 	)
 }
 
+const CommentInput = () => {
+	return (
+		<>
+			<div className='border-1 border-[var(--border)] rounded-xl flex flex-col p-4 my-5 text-[var(--primary-text)]'>
+				<p className='text-ms font-medium mb-5'>Комментарии</p>
+				<textarea
+					name='comments'
+					id='comments'
+					className='rounded-sm p-3 border-1 border-[var(--border)] outline-0 focus:ring-2 focus:border-[#ffffff99] ring-[var(--color1)] mb-2 transition-all'
+				>
+					Добавить комментарий...
+				</textarea>
+				<div className='inline-flex justify-end'>
+					<GrayButton namebtn={'Отправить комментарий'} />
+				</div>
+			</div>
+		</>
+	)
+}
+
 export {
+	CommentInput,
 	FileUpload,
 	Profile,
 	Input,

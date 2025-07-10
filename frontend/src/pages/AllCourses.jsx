@@ -22,7 +22,7 @@ const AllCourses = () => {
 
 	return (
 		<>
-			<div className='py-10 px-25'>
+			<div className='p-20 max-lg:p-10 max-lg:mt-10'>
 				<div className='flex flex-col gap-5'>
 					<div className='inline-flex gap-3'>
 						<Link size={'text-xs'} text={'Dashboard'} />
@@ -32,7 +32,7 @@ const AllCourses = () => {
 					<p className='text-4xl font-bold mb-4 text-[var(--primary-text)]'>
 						МелГУ СУО 1.2
 					</p>
-					<div className='inline-flex items-center gap-6'>
+					<div className='inline-flex max-lg:flex-col max-lg:w-fit lg:items-center gap-6'>
 						<Option
 							options={chapters}
 							selectedValue={selectedChapter}
