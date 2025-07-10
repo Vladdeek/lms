@@ -32,6 +32,10 @@ const Header = ({
 	const [activeDropdown, setActiveDropdown] = useState(null)
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false)
 
+	const hideDropdown = () => {
+		setActiveDropdown(!activeDropdown)
+	}
+
 	const handleToggle = dropdownName => {
 		setActiveDropdown(activeDropdown === dropdownName ? null : dropdownName)
 	}
@@ -73,7 +77,10 @@ const Header = ({
 						</div>
 						<div className={`${burgerIsOpen && 'hidden'} flex`}>
 							<ChangeLang ChapterName={'Рус'}>
-								<InDropdown content={'Русский'} />
+								<InDropdown
+									content={'Русский'}
+									onClick={() => hideDropdown()}
+								/>
 							</ChangeLang>
 						</div>
 						<div
@@ -88,10 +95,20 @@ const Header = ({
 								isOpen={activeDropdown === 'courses'}
 								onToggle={() => handleToggle('courses')}
 							>
-								<InDropdown content={'Все курсы'} to={'courses'} />
-								<InDropdown content={'Поиск курсов'} />
+								<InDropdown
+									content={'Все курсы'}
+									to={'courses'}
+									onClick={() => hideDropdown()}
+								/>
+								<InDropdown
+									content={'Поиск курсов'}
+									onClick={() => hideDropdown()}
+								/>
 								<div className='border-t-1 flex flex-col gap-1 mt-1 p-1 border-[var(--border)]'>
-									<InDropdown content={'Темы документации'} />
+									<InDropdown
+										content={'Темы документации'}
+										onClick={() => hideDropdown()}
+									/>
 								</div>
 							</Dropdown>
 							<HeaderBtn ChapterName={'Докс'} />
@@ -100,9 +117,15 @@ const Header = ({
 								isOpen={activeDropdown === 'server'}
 								onToggle={() => handleToggle('server')}
 							>
-								<InDropdown content={'kylos'} />
-								<InDropdown content={'Hostinger'} />
-								<InDropdown content={'ScalaHosting'} />
+								<InDropdown content={'kylos'} onClick={() => hideDropdown()} />
+								<InDropdown
+									content={'Hostinger'}
+									onClick={() => hideDropdown()}
+								/>
+								<InDropdown
+									content={'ScalaHosting'}
+									onClick={() => hideDropdown()}
+								/>
 							</Dropdown>
 							<Dropdown
 								ChapterName={'Версии'}
@@ -116,12 +139,27 @@ const Header = ({
 								isOpen={activeDropdown === 'themes'}
 								onToggle={() => handleToggle('themes')}
 							>
-								<InDropdown content={'Universe (new)'} />
-								<InDropdown content={'Space 2'} />
-								<InDropdown content={'Alpha 2'} />
-								<InDropdown content={'Monocolor'} />
-								<InDropdown content={'BAZ'} />
-								<InDropdown content={'IOMAD Moon'} />
+								<InDropdown
+									content={'Universe (new)'}
+									onClick={() => hideDropdown()}
+								/>
+								<InDropdown
+									content={'Space 2'}
+									onClick={() => hideDropdown()}
+								/>
+								<InDropdown
+									content={'Alpha 2'}
+									onClick={() => hideDropdown()}
+								/>
+								<InDropdown
+									content={'Monocolor'}
+									onClick={() => hideDropdown()}
+								/>
+								<InDropdown content={'BAZ'} onClick={() => hideDropdown()} />
+								<InDropdown
+									content={'IOMAD Moon'}
+									onClick={() => hideDropdown()}
+								/>
 							</Dropdown>
 						</div>
 					</div>
@@ -174,16 +212,34 @@ const Header = ({
 									</div>
 
 									<div className='border-t-1 flex flex-col gap-1 p-1 border-stone-200'>
-										<InDropdown content={'Дашборд'} />
-										<InDropdown content={'Контент'} />
+										<InDropdown
+											content={'Дашборд'}
+											onClick={() => hideDropdown()}
+										/>
+										<InDropdown
+											content={'Контент'}
+											onClick={() => hideDropdown()}
+										/>
 									</div>
 									<div className='border-t-1 flex flex-col gap-1 p-1 border-stone-200'>
-										<InDropdown content={'Оценки'} />
-										<InDropdown content={'Отчеты'} />
+										<InDropdown
+											content={'Оценки'}
+											onClick={() => hideDropdown()}
+										/>
+										<InDropdown
+											content={'Отчеты'}
+											onClick={() => hideDropdown()}
+										/>
 									</div>
 									<div className='border-t-1 flex flex-col gap-1 p-1 border-stone-200'>
-										<InDropdown content={'Настройки'} />
-										<InDropdown content={'Выйти'} />
+										<InDropdown
+											content={'Настройки'}
+											onClick={() => hideDropdown()}
+										/>
+										<InDropdown
+											content={'Выйти'}
+											onClick={() => hideDropdown()}
+										/>
 									</div>
 								</Profile>
 								<button

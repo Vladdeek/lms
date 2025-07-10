@@ -358,9 +358,9 @@ const FilterOption = ({ options, selectedValue, onSelect, children }) => {
 	)
 }
 
-const InDropdown = ({ content, to }) => {
+const InDropdown = ({ content, to, onClick }) => {
 	return (
-		<NavLink to={to}>
+		<NavLink to={to} onClick={onClick}>
 			<p className='hover:bg-[var(--secondary)] hover:text-[var(--primary)] text-[var(--primary-text)] rounded-lg text-xs font-medium select-none transition-all px-4 py-2'>
 				{content}
 			</p>
