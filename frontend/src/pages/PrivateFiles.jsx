@@ -31,7 +31,7 @@ const PrivateFiles = () => {
 
 	return (
 		<>
-			<div className='py-10 px-25'>
+			<div className='p-20 max-lg:p-10 max-lg:mt-10'>
 				<div className='flex flex-col gap-3'>
 					<div className='inline-flex gap-3'>
 						<Link size={'text-xs'} text={'Dashboard'} />
