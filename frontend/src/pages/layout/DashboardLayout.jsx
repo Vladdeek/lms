@@ -95,7 +95,7 @@ export default function DashboardLayout() {
 
 			{/* Main content */}
 			<div
-				className={`flex-1 min-h-screen transition-all duration-300 ease-in-out ${
+				className={`flex-1 h-screen transition-all duration-300 ease-in-out ${
 					sidebarOpen ? 'lg:ml-65' : '-ml-0'
 				}`}
 			>

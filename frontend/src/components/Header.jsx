@@ -42,9 +42,9 @@ const Header = ({
 	return (
 		<>
 			<div
-				className={`fixed z-100 top-0 ${
-					!sidebarOpen ? 'lg:left-0 w-screen' : 'lg:left-65'
-				} max-lg:w-screen transition-all`}
+				className={`max-lg:fixed z-100 top-0 ${
+					!sidebarOpen ? 'lg:left-0 w-screen ' : 'lg:left-65 w-full'
+				} transition-all`}
 			>
 				<div
 					className={`flex  px-2 py-2 ${
