@@ -32,7 +32,7 @@ const Header = ({
 	const [searchIsOpen, setSearchIsOpen] = useState(false)
 	const [activeDropdown, setActiveDropdown] = useState(null)
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false)
-	const [isMenuOpen, setIsMenuOpen] = useState(true)
+	const [isMenuOpen, setIsMenuOpen] = useState(false)
 
 	const hideDropdown = () => {
 		setActiveDropdown(!activeDropdown)
@@ -114,7 +114,7 @@ const Header = ({
 								</div>
 							</Dropdown>
 							<HeaderBtn ChapterName={'Докс'} />
-							<div className='max-xl:hidden'>
+							<div className='max-xl:hidden max-lg:block'>
 								<Dropdown
 									ChapterName={'Сервер'}
 									isOpen={activeDropdown === 'server'}
@@ -135,7 +135,7 @@ const Header = ({
 								</Dropdown>
 							</div>
 
-							<div className='max-2xl:hidden'>
+							<div className='max-2xl:hidden max-lg:block'>
 								<Dropdown
 									ChapterName={'Версии'}
 									isOpen={activeDropdown === 'versions'}
@@ -145,7 +145,7 @@ const Header = ({
 								</Dropdown>
 							</div>
 
-							<div className='max-2xl:hidden'>
+							<div className='max-2xl:hidden max-lg:block'>
 								<Dropdown
 									ChapterName={'Темы Moodle'}
 									isOpen={activeDropdown === 'themes'}
@@ -176,9 +176,9 @@ const Header = ({
 							</div>
 
 							<button
-								className={`2xl:hidden p-2 bg-[var(--bg-sidebar)]  flex transition-all justify-center items-center h-12 w-12 relative rounded-md text-[var(--primary-text)] ${
+								className={`2xl:hidden max-lg:hidden p-2 bg-[var(--bg-sidebar)]  flex transition-all justify-center items-center h-12 w-12 relative rounded-md  ${
 									!isMenuOpen
-										? 'hover:bg-[var(--secondary)] hover:text-[var(--primary)]'
+										? 'hover:bg-[var(--secondary)] text-[var(--primary-text)] hover:text-[var(--primary)]'
 										: 'bg-[var(--secondary)] text-[var(--primary)]'
 								}`}
 								onClick={() => setIsMenuOpen(!isMenuOpen)}

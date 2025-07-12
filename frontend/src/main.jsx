@@ -15,6 +15,7 @@ import Courses from './pages/Courses'
 import CalendarPage from './pages/CalendarPage'
 import Dashboard from './pages/Dashboard'
 import PrivateFiles from './pages/PrivateFiles'
+import Page from './pages/Page'
 
 function MainApp() {
 	const navigate = useNavigate()
@@ -38,6 +39,7 @@ function MainApp() {
 					<Route path='calendar' element={<CalendarPage />} />
 					<Route path='dashboard' element={<Dashboard />} />
 					<Route path='private-files' element={<PrivateFiles />} />
+					<Route path='get-this-theme' element={<Page />} />
 				</Route>
 			</Routes>
 		</Suspense>
