@@ -1,4 +1,5 @@
 import {
+	EllipsisVertical,
 	GraduationCap,
 	Info,
 	InfoIcon,
@@ -31,6 +32,7 @@ const Header = ({
 	const [searchIsOpen, setSearchIsOpen] = useState(false)
 	const [activeDropdown, setActiveDropdown] = useState(null)
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false)
+	const [isMenuOpen, setIsMenuOpen] = useState(true)
 
 	const hideDropdown = () => {
 		setActiveDropdown(!activeDropdown)
@@ -43,7 +45,7 @@ const Header = ({
 		<>
 			<div
 				className={`max-lg:fixed z-100 top-0 ${
-					!sidebarOpen ? 'lg:left-0 w-screen ' : 'lg:left-65 w-full'
+					!sidebarOpen ? 'left-0 w-screen ' : 'lg:left-65 w-full'
 				} transition-all`}
 			>
 				<div
@@ -72,7 +74,7 @@ const Header = ({
 							)}
 						</div>
 
-						<div className='flex justify-center max-lg:hidden items-center h-12 mx-5 hover:opacity-75 transition-all cursor-pointer'>
+						<div className='flex justify-center max-xl:hidden items-center h-12 mx-5 hover:opacity-75 transition-all cursor-pointer'>
 							<GraduationCap className='text-[var(--logo)]' size={32} />
 						</div>
 						<div className={`${burgerIsOpen && 'hidden'} flex`}>
@@ -84,7 +86,7 @@ const Header = ({
 							</ChangeLang>
 						</div>
 						<div
-							className={`flex ${
+							className={`flex gap-1 ${
 								!burgerIsOpen
 									? 'max-lg:hidden'
 									: 'max-lg:flex-col max-lg:w-full'
@@ -112,55 +114,147 @@ const Header = ({
 								</div>
 							</Dropdown>
 							<HeaderBtn ChapterName={'Докс'} />
-							<Dropdown
-								ChapterName={'Сервер'}
-								isOpen={activeDropdown === 'server'}
-								onToggle={() => handleToggle('server')}
+							<div className='max-xl:hidden'>
+								<Dropdown
+									ChapterName={'Сервер'}
+									isOpen={activeDropdown === 'server'}
+									onToggle={() => handleToggle('server')}
+								>
+									<InDropdown
+										content={'kylos'}
+										onClick={() => hideDropdown()}
+									/>
+									<InDropdown
+										content={'Hostinger'}
+										onClick={() => hideDropdown()}
+									/>
+									<InDropdown
+										content={'ScalaHosting'}
+										onClick={() => hideDropdown()}
+									/>
+								</Dropdown>
+							</div>
+
+							<div className='max-2xl:hidden'>
+								<Dropdown
+									ChapterName={'Версии'}
+									isOpen={activeDropdown === 'versions'}
+									onToggle={() => handleToggle('versions')}
+								>
+									<InDropdown content={'For moodle 3.9 - 3.11'} />
+								</Dropdown>
+							</div>
+
+							<div className='max-2xl:hidden'>
+								<Dropdown
+									ChapterName={'Темы Moodle'}
+									isOpen={activeDropdown === 'themes'}
+									onToggle={() => handleToggle('themes')}
+								>
+									<InDropdown
+										content={'Universe (new)'}
+										onClick={() => hideDropdown()}
+									/>
+									<InDropdown
+										content={'Space 2'}
+										onClick={() => hideDropdown()}
+									/>
+									<InDropdown
+										content={'Alpha 2'}
+										onClick={() => hideDropdown()}
+									/>
+									<InDropdown
+										content={'Monocolor'}
+										onClick={() => hideDropdown()}
+									/>
+									<InDropdown content={'BAZ'} onClick={() => hideDropdown()} />
+									<InDropdown
+										content={'IOMAD Moon'}
+										onClick={() => hideDropdown()}
+									/>
+								</Dropdown>
+							</div>
+
+							<button
+								className={`2xl:hidden p-2 bg-[var(--bg-sidebar)]  flex transition-all justify-center items-center h-12 w-12 relative rounded-md text-[var(--primary-text)] ${
+									!isMenuOpen
+										? 'hover:bg-[var(--secondary)] hover:text-[var(--primary)]'
+										: 'bg-[var(--secondary)] text-[var(--primary)]'
+								}`}
+								onClick={() => setIsMenuOpen(!isMenuOpen)}
 							>
-								<InDropdown content={'kylos'} onClick={() => hideDropdown()} />
-								<InDropdown
-									content={'Hostinger'}
-									onClick={() => hideDropdown()}
-								/>
-								<InDropdown
-									content={'ScalaHosting'}
-									onClick={() => hideDropdown()}
-								/>
-							</Dropdown>
-							<Dropdown
-								ChapterName={'Версии'}
-								isOpen={activeDropdown === 'versions'}
-								onToggle={() => handleToggle('versions')}
-							>
-								<InDropdown content={'For moodle 3.9 - 3.11'} />
-							</Dropdown>
-							<Dropdown
-								ChapterName={'Темы Moodle'}
-								isOpen={activeDropdown === 'themes'}
-								onToggle={() => handleToggle('themes')}
-							>
-								<InDropdown
-									content={'Universe (new)'}
-									onClick={() => hideDropdown()}
-								/>
-								<InDropdown
-									content={'Space 2'}
-									onClick={() => hideDropdown()}
-								/>
-								<InDropdown
-									content={'Alpha 2'}
-									onClick={() => hideDropdown()}
-								/>
-								<InDropdown
-									content={'Monocolor'}
-									onClick={() => hideDropdown()}
-								/>
-								<InDropdown content={'BAZ'} onClick={() => hideDropdown()} />
-								<InDropdown
-									content={'IOMAD Moon'}
-									onClick={() => hideDropdown()}
-								/>
-							</Dropdown>
+								<EllipsisVertical />
+								{isMenuOpen && (
+									<div
+										className='bg-[var(--bg)] border-1 border-[var(--border)] p-2 rounded-lg absolute top-15 z-200'
+										onClick={e => e.stopPropagation()}
+									>
+										<div className='xl:hidden'>
+											<Dropdown
+												ChapterName={'Сервер'}
+												isOpen={activeDropdown === 'server'}
+												onToggle={() => handleToggle('server')}
+											>
+												<InDropdown
+													content={'kylos'}
+													onClick={() => hideDropdown()}
+												/>
+												<InDropdown
+													content={'Hostinger'}
+													onClick={() => hideDropdown()}
+												/>
+												<InDropdown
+													content={'ScalaHosting'}
+													onClick={() => hideDropdown()}
+												/>
+											</Dropdown>
+										</div>
+
+										<div className='2xl:hidden'>
+											<Dropdown
+												ChapterName={'Версии'}
+												isOpen={activeDropdown === 'versions'}
+												onToggle={() => handleToggle('versions')}
+											>
+												<InDropdown content={'For moodle 3.9 - 3.11'} />
+											</Dropdown>
+										</div>
+
+										<div className='2xl:hidden'>
+											<Dropdown
+												ChapterName={'Темы Moodle'}
+												isOpen={activeDropdown === 'themes'}
+												onToggle={() => handleToggle('themes')}
+											>
+												<InDropdown
+													content={'Universe (new)'}
+													onClick={() => hideDropdown()}
+												/>
+												<InDropdown
+													content={'Space 2'}
+													onClick={() => hideDropdown()}
+												/>
+												<InDropdown
+													content={'Alpha 2'}
+													onClick={() => hideDropdown()}
+												/>
+												<InDropdown
+													content={'Monocolor'}
+													onClick={() => hideDropdown()}
+												/>
+												<InDropdown
+													content={'BAZ'}
+													onClick={() => hideDropdown()}
+												/>
+												<InDropdown
+													content={'IOMAD Moon'}
+													onClick={() => hideDropdown()}
+												/>
+											</Dropdown>
+										</div>
+									</div>
+								)}
+							</button>
 						</div>
 					</div>
 					<div className='inline-flex h-12 gap-1'>
