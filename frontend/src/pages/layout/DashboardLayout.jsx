@@ -85,7 +85,9 @@ export default function DashboardLayout() {
 							icon={Inbox}
 						/>
 						<SBLink
-							to={'get-this-theme'}
+							to={
+								'https://themeforest.net/item/space-moodle-template/22579922?irgwc=1&clickid=xzB2Os1-qxycWFa2vb1nlxY6UksStTTHeWd-yo0&iradid=275988&irpid=3679707&iradtype=ONLINE_TRACKING_LINK&irmptype=mediapartner&mp_value1=&utm_campaign=af_impact_radius_3679707&utm_medium=affiliate&utm_source=impact_radius'
+							}
 							chapter_name={'Получите эту тему'}
 							icon={ShoppingCart}
 						/>

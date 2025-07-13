@@ -596,6 +596,17 @@ const GrayButton = ({ namebtn }) => {
 		</>
 	)
 }
+const BlackButton = ({ namebtn }) => {
+	return (
+		<>
+			<button
+				className={`bg-black hover:brightness-80 active:scale-97 transition-all inline-flex gap-4 text-white font-medium p-4 px-10 text-lg justify-between items-center rounded-md `}
+			>
+				{namebtn}
+			</button>
+		</>
+	)
+}
 
 const CourseCard = ({
 	title,
@@ -806,4 +817,5 @@ export {
 	ImgBtn,
 	RadioBtn,
 	GrayButton,
+	BlackButton,
 }
