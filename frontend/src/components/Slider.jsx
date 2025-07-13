@@ -76,28 +76,27 @@ const Slider = () => {
 
 	return (
 		<>
-			<div className='relative rounded-md overflow-hidden'>
-				<div className='absolute w-[98%] rounded-full bg-[var(--glass)] h-2 top-3 mx-3 backdrop-blur-xs'>
+			<div className='relative rounded-md md:flex md:flex-col overflow-hidden'>
+				{/* Прогрессбар */}
+				<div className='absolute w-[98%] rounded-full bg-[var(--glass)] h-2 top-3 mx-3 backdrop-blur-xs z-21'>
 					<div
 						className='absolute rounded-full bg-gradient-to-r from-[var(--color1)] to-[var(--color2)] h-2 transition-all duration-300'
 						style={{ width: progressWidth }}
 					></div>
 				</div>
 
-				<img
-					src={Slides[slideNow].image}
-					alt={`Slide ${slideNow + 1}`}
-					className='w-full transition-all'
-				/>
+				{/* Текстовый блок */}
 				<div
-					className='absolute z-50  backdrop-blur-xs rounded-md w-3/7 h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 text-center border-1 border-t-[var(--glass-light-border)] border-l-[var(--glass-light-border)] border-b-[var(--glass-dark-border)] border-r-[var(--glass-dark-border)]'
+					className='z-20 backdrop-blur-xs rounded-md w-full lg:w-4/5 xl:w-3/5 2xl:w-2/5 h-auto p-5 lg:p-10 text-center 
+					lg:border-1 border-t-[var(--glass-light-border)] border-l-[var(--glass-light-border)] border-b-[var(--glass-dark-border)] border-r-[var(--glass-dark-border)] 
+					lg:absolute lg:top-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2'
 					style={{
 						background:
 							'radial-gradient(circle at top left, var(--glass-light), var(--glass))',
 					}}
 				>
 					<div className='inline-flex flex-col items-center gap-3'>
-						<p className='text-[var(--primary-text)] text-3xl font-semibold'>
+						<p className='text-[var(--primary-text)] md:text-2xl xl:text-3xl font-semibold'>
 							{Slides[slideNow].title}
 						</p>
 						<p className='text-[var(--primary-text)] text-md font-medium w-6/7 text-center'>
@@ -106,18 +105,28 @@ const Slider = () => {
 						<p className='text-[var(--primary-text)] text-sm font-normal w-1/2 text-center'>
 							{Slides[slideNow].description}
 						</p>
-						<div className='inline-flex mx-auto'>
-							<GrayButton namebtn={'Получить эту тему!'} />
-						</div>
-						<div className='inline-flex mx-auto'>
-							<BlackButton namebtn={'МелГУ СУО 1.2 для Moodle 4.5 - 4.0 '} />
+						<div className='inline-flex xl:flex-col gap-3'>
+							<div className='inline-flex mx-auto'>
+								<GrayButton namebtn={'Получить эту тему!'} />
+							</div>
+							<div className='inline-flex mx-auto'>
+								<BlackButton namebtn={'МелГУ СУО 1.2 для Moodle 4.5 - 4.0 '} />
+							</div>
 						</div>
 					</div>
 				</div>
 
+				{/* Картинка */}
+				<img
+					src={Slides[slideNow].image}
+					alt={`Slide ${slideNow + 1}`}
+					className='w-full transition-all'
+				/>
+
+				{/* Кнопки */}
 				<button
 					onClick={prevSlide}
-					className='absolute left-3 top-1/2 transform -translate-y-1/2 rounded-full  text-[var(--gray)] p-2 hover:scale-105 transition-all backdrop-blur-xs border-1 border-t-[var(--glass-light-border)] border-l-[var(--glass-light-border)] border-b-[var(--glass-dark-border)] border-r-[var(--glass-dark-border)]'
+					className='absolute left-3 top-1/2 transform -translate-y-1/2 rounded-full text-[var(--gray)] p-2 hover:scale-105 transition-all backdrop-blur-xs border-1 border-t-[var(--glass-light-border)] border-l-[var(--glass-light-border)] border-b-[var(--glass-dark-border)] border-r-[var(--glass-dark-border)]'
 					style={{
 						background:
 							'radial-gradient(circle at top left, var(--glass-light), var(--glass))',
@@ -127,7 +136,7 @@ const Slider = () => {
 				</button>
 				<button
 					onClick={nextSlide}
-					className='absolute right-3 top-1/2 transform -translate-y-1/2 rounded-full  text-[var(--gray)] p-2 hover:scale-105 transition-all backdrop-blur-xs border-1 border-t-[var(--glass-light-border)] border-l-[var(--glass-light-border)] border-b-[var(--glass-dark-border)] border-r-[var(--glass-dark-border)]'
+					className='absolute right-3 top-1/2 transform -translate-y-1/2 rounded-full text-[var(--gray)] p-2 hover:scale-105 transition-all backdrop-blur-xs border-1 border-t-[var(--glass-light-border)] border-l-[var(--glass-light-border)] border-b-[var(--glass-dark-border)] border-r-[var(--glass-dark-border)]'
 					style={{
 						background:
 							'radial-gradient(circle at top left, var(--glass-light), var(--glass))',
