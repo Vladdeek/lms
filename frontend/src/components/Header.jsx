@@ -44,9 +44,11 @@ const Header = ({
 	return (
 		<>
 			<div
-				className={`max-lg:fixed z-100 top-0 ${
-					!sidebarOpen ? 'left-0 w-screen ' : 'lg:left-65 w-full'
-				} transition-all`}
+				className={`fixed z-100 top-0 transition-all ${
+					sidebarOpen
+						? 'lg:left-[260px] lg:w-[calc(100%-260px)] max-lg:w-full' // подгони под ширину сайдбара
+						: 'left-0 w-full'
+				}`}
 			>
 				<div
 					className={`flex  px-2 py-2 ${

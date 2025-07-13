@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { BlackButton, GrayButton } from './Components'
 
 const Slider = () => {
@@ -34,17 +34,42 @@ const Slider = () => {
 	]
 
 	const [slideNow, setSlideNow] = useState(0)
+	const intervalRef = useRef(null)
+	const pauseTimeoutRef = useRef(null)
+
+	const goToNextSlide = () => {
+		setSlideNow(prev => (prev + 1) % Slides.length)
+	}
+
+	const startAutoSlide = () => {
+		clearInterval(intervalRef.current)
+		intervalRef.current = setInterval(goToNextSlide, 5000)
+	}
+
+	const pauseAutoSlide = () => {
+		clearInterval(intervalRef.current)
+		clearTimeout(pauseTimeoutRef.current)
+		pauseTimeoutRef.current = setTimeout(() => {
+			startAutoSlide()
+		}, 15000)
+	}
+
+	useEffect(() => {
+		startAutoSlide()
+		return () => {
+			clearInterval(intervalRef.current)
+			clearTimeout(pauseTimeoutRef.current)
+		}
+	}, [])
 
 	const nextSlide = () => {
-		setSlideNow(prevIndex =>
-			prevIndex === Slides.length - 1 ? 0 : prevIndex + 1
-		)
+		setSlideNow(prev => (prev + 1) % Slides.length)
+		pauseAutoSlide()
 	}
 
 	const prevSlide = () => {
-		setSlideNow(prevIndex =>
-			prevIndex === 0 ? Slides.length - 1 : prevIndex - 1
-		)
+		setSlideNow(prev => (prev - 1 + Slides.length) % Slides.length)
+		pauseAutoSlide()
 	}
 
 	const progressWidth = `${((slideNow + 1) / Slides.length) * 100}%`
@@ -64,7 +89,13 @@ const Slider = () => {
 					alt={`Slide ${slideNow + 1}`}
 					className='w-full transition-all'
 				/>
-				<div className='absolute z-50 bg-[var(--glass)]  backdrop-blur-xs rounded-md w-3/7 h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 text-center'>
+				<div
+					className='absolute z-50  backdrop-blur-xs rounded-md w-3/7 h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 text-center border-1 border-t-[var(--glass-light-border)] border-l-[var(--glass-light-border)] border-b-[var(--glass-dark-border)] border-r-[var(--glass-dark-border)]'
+					style={{
+						background:
+							'radial-gradient(circle at top left, var(--glass-light), var(--glass))',
+					}}
+				>
 					<div className='inline-flex flex-col items-center gap-3'>
 						<p className='text-[var(--primary-text)] text-3xl font-semibold'>
 							{Slides[slideNow].title}
@@ -86,13 +117,21 @@ const Slider = () => {
 
 				<button
 					onClick={prevSlide}
-					className='absolute left-3 top-1/2 transform -translate-y-1/2 rounded-full bg-[var(--glass)] text-[var(--gray)] p-2 hover:scale-105 transition-all backdrop-blur-xs'
+					className='absolute left-3 top-1/2 transform -translate-y-1/2 rounded-full  text-[var(--gray)] p-2 hover:scale-105 transition-all backdrop-blur-xs border-1 border-t-[var(--glass-light-border)] border-l-[var(--glass-light-border)] border-b-[var(--glass-dark-border)] border-r-[var(--glass-dark-border)]'
+					style={{
+						background:
+							'radial-gradient(circle at top left, var(--glass-light), var(--glass))',
+					}}
 				>
 					<ChevronLeft />
 				</button>
 				<button
 					onClick={nextSlide}
-					className='absolute right-3 top-1/2 transform -translate-y-1/2 rounded-full bg-[var(--glass)] text-[var(--gray)] p-2 hover:scale-105 transition-all backdrop-blur-xs'
+					className='absolute right-3 top-1/2 transform -translate-y-1/2 rounded-full  text-[var(--gray)] p-2 hover:scale-105 transition-all backdrop-blur-xs border-1 border-t-[var(--glass-light-border)] border-l-[var(--glass-light-border)] border-b-[var(--glass-dark-border)] border-r-[var(--glass-dark-border)]'
+					style={{
+						background:
+							'radial-gradient(circle at top left, var(--glass-light), var(--glass))',
+					}}
 				>
 					<ChevronRight />
 				</button>
