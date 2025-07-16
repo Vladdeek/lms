@@ -26,7 +26,7 @@ const CalendarPage = () => {
 	]
 	const [selectedChapter2, setSelectedChapter2] = useState(null)
 	return (
-		<div className='py-10 px-25'>
+		<div className='p-20 max-lg:p-10 max-lg:mt-10'>
 			<div className='flex flex-col gap-5'>
 				<div className='inline-flex gap-3'>
 					<Link text={'Dashboard'} />
@@ -36,8 +36,8 @@ const CalendarPage = () => {
 				<p className='text-5xl font-bold mb-4 text-[var(--primary-text)]'>
 					Календарь
 				</p>
-				<div className='flex justify-between'>
-					<div className='inline-flex items-center gap-6'>
+				<div className='grid grid-cols-1 gap-3 xl:flex justify-between'>
+					<div className='inline-flex items-center max-xl:justify-between gap-6'>
 						<OptionAlt
 							options={chapters1}
 							selectedValue={selectedChapter1}
